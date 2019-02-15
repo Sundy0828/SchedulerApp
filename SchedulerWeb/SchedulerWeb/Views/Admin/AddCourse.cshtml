@@ -1,0 +1,86 @@
+﻿
+@{
+    ViewBag.Title = "Add Course";
+}
+
+<h2>Add Course</h2>
+
+<hr />
+
+@using (Html.BeginForm("CreateCourse", "Admin", FormMethod.Post))
+{
+    <div class="row">
+        <div class="col-sm-9">
+            <div class="row">
+                <div class="col-sm-4">
+                    <h4>Major</h4>
+                    <input id="major" name="major" type="text" class="form-control" placeholder="Enter Major Code" required autofocus maxlength="3"/>
+                </div>
+                <div class="col-sm-4">
+                    <h4>Course</h4>
+                    <input id="course" name="course" type="text" class="form-control" placeholder="Enter Course Code" required maxlength="3"/>
+                </div>
+                <div class="col-sm-4">
+                    <h4>Section</h4>
+                    <input id="section" name="section" type="text" class="form-control" placeholder="Enter Section Code" maxlength="2"/>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <h4>Title</h4>
+                    <input id="title" name="title" type="text" class="form-control" placeholder="Enter Course Title" required />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <h4>Semester</h4>
+                    @Html.DropDownList("semester", new SelectList(ViewBag.semester, "ID", "Description"), new { @class = "form-control", name = "semester" })
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <h4>Year</h4>
+                    @Html.DropDownList("year", new SelectList(ViewBag.year, "ID", "Description"), new { @class = "form-control", name = "year" })
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <h4>Liberal Arts Curriculum</h4>
+                    @Html.DropDownList("LibArt", new SelectList(ViewBag.libArt, "ID", "Description"), new { @class = "form-control", name = "LibArt" })
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <h4>Credits</h4>
+                    <input id="credits" name="credits" type="number" class="form-control" placeholder="Enter Course Credit Amount" required />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <br />
+                    <button class="btn btn-primary">
+                        <i class="fas fa-plus"></i> Create Course
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-3"></div>
+    </div>
+    
+}
+
+@section Scripts {
+    <script>
+        $(function () {
+            var element = document.getElementById("ActiveAdmin");
+            element.classList.add("active");
+        });
+    </script>
+}

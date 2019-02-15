@@ -1,0 +1,303 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="SchedulerModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Courses">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MCode" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="CCode" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="SCode" Type="nchar" MaxLength="10" />
+          <Property Name="Title" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Prerequisites" Type="nvarchar(max)" />
+          <Property Name="Semester_ID" Type="int" Nullable="false" />
+          <Property Name="Year_ID" Type="int" Nullable="false" />
+          <Property Name="TimePeriodStart" Type="datetime" />
+          <Property Name="TimePeriodEnd" Type="datetime" />
+          <Property Name="Credits" Type="int" Nullable="false" />
+          <Property Name="LibArt_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LibArts">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Majors">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Courses" Type="nvarchar(max)" />
+          <Property Name="IsMajor" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Semesters">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Years">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Description" Type="nchar" MaxLength="15" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Courses_LibArts">
+          <End Role="LibArts" Type="Self.LibArts" Multiplicity="1" />
+          <End Role="Courses" Type="Self.Courses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LibArts">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Courses">
+              <PropertyRef Name="LibArt_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Courses_Semesters">
+          <End Role="Semesters" Type="Self.Semesters" Multiplicity="1" />
+          <End Role="Courses" Type="Self.Courses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Semesters">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Courses">
+              <PropertyRef Name="Semester_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Courses_Years">
+          <End Role="Years" Type="Self.Years" Multiplicity="1" />
+          <End Role="Courses" Type="Self.Courses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Years">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Courses">
+              <PropertyRef Name="Year_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SchedulerModelStoreContainer">
+          <EntitySet Name="Courses" EntityType="Self.Courses" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LibArts" EntityType="Self.LibArts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Majors" EntityType="Self.Majors" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Semesters" EntityType="Self.Semesters" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Years" EntityType="Self.Years" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Courses_LibArts" Association="Self.FK_Courses_LibArts">
+            <End Role="LibArts" EntitySet="LibArts" />
+            <End Role="Courses" EntitySet="Courses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Courses_Semesters" Association="Self.FK_Courses_Semesters">
+            <End Role="Semesters" EntitySet="Semesters" />
+            <End Role="Courses" EntitySet="Courses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Courses_Years" Association="Self.FK_Courses_Years">
+            <End Role="Years" EntitySet="Years" />
+            <End Role="Courses" EntitySet="Courses" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SchedulerModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="SchedulerEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Courses" EntityType="SchedulerModel.Course" />
+          <EntitySet Name="LibArts" EntityType="SchedulerModel.LibArt" />
+          <EntitySet Name="Majors" EntityType="SchedulerModel.Major" />
+          <EntitySet Name="Semesters" EntityType="SchedulerModel.Semester" />
+          <EntitySet Name="Years" EntityType="SchedulerModel.Year" />
+          <AssociationSet Name="FK_Courses_LibArts" Association="SchedulerModel.FK_Courses_LibArts">
+            <End Role="LibArt" EntitySet="LibArts" />
+            <End Role="Cours" EntitySet="Courses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Courses_Semesters" Association="SchedulerModel.FK_Courses_Semesters">
+            <End Role="Semester" EntitySet="Semesters" />
+            <End Role="Cours" EntitySet="Courses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Courses_Years" Association="SchedulerModel.FK_Courses_Years">
+            <End Role="Year" EntitySet="Years" />
+            <End Role="Cours" EntitySet="Courses" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Course">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MCode" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="CCode" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="SCode" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Prerequisites" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Semester_ID" Type="Int32" Nullable="false" />
+          <Property Name="Year_ID" Type="Int32" Nullable="false" />
+          <Property Name="TimePeriodStart" Type="DateTime" Precision="3" />
+          <Property Name="TimePeriodEnd" Type="DateTime" Precision="3" />
+          <Property Name="Credits" Type="Int32" Nullable="false" />
+          <Property Name="LibArt_ID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="LibArt" Relationship="SchedulerModel.FK_Courses_LibArts" FromRole="Cours" ToRole="LibArt" />
+          <NavigationProperty Name="Semester" Relationship="SchedulerModel.FK_Courses_Semesters" FromRole="Cours" ToRole="Semester" />
+          <NavigationProperty Name="Year" Relationship="SchedulerModel.FK_Courses_Years" FromRole="Cours" ToRole="Year" />
+        </EntityType>
+        <EntityType Name="LibArt">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Courses" Relationship="SchedulerModel.FK_Courses_LibArts" FromRole="LibArt" ToRole="Cours" />
+        </EntityType>
+        <EntityType Name="Major">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Courses" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsMajor" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Semester">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Courses" Relationship="SchedulerModel.FK_Courses_Semesters" FromRole="Semester" ToRole="Cours" />
+        </EntityType>
+        <EntityType Name="Year">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="15" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Courses" Relationship="SchedulerModel.FK_Courses_Years" FromRole="Year" ToRole="Cours" />
+        </EntityType>
+        <Association Name="FK_Courses_LibArts">
+          <End Type="SchedulerModel.LibArt" Role="LibArt" Multiplicity="1" />
+          <End Type="SchedulerModel.Course" Role="Cours" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LibArt">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Cours">
+              <PropertyRef Name="LibArt_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Courses_Semesters">
+          <End Type="SchedulerModel.Semester" Role="Semester" Multiplicity="1" />
+          <End Type="SchedulerModel.Course" Role="Cours" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Semester">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Cours">
+              <PropertyRef Name="Semester_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Courses_Years">
+          <End Type="SchedulerModel.Year" Role="Year" Multiplicity="1" />
+          <End Type="SchedulerModel.Course" Role="Cours" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Year">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Cours">
+              <PropertyRef Name="Year_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SchedulerModelStoreContainer" CdmEntityContainer="SchedulerEntities">
+          <EntitySetMapping Name="Courses">
+            <EntityTypeMapping TypeName="SchedulerModel.Course">
+              <MappingFragment StoreEntitySet="Courses">
+                <ScalarProperty Name="LibArt_ID" ColumnName="LibArt_ID" />
+                <ScalarProperty Name="Credits" ColumnName="Credits" />
+                <ScalarProperty Name="TimePeriodEnd" ColumnName="TimePeriodEnd" />
+                <ScalarProperty Name="TimePeriodStart" ColumnName="TimePeriodStart" />
+                <ScalarProperty Name="Year_ID" ColumnName="Year_ID" />
+                <ScalarProperty Name="Semester_ID" ColumnName="Semester_ID" />
+                <ScalarProperty Name="Prerequisites" ColumnName="Prerequisites" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="SCode" ColumnName="SCode" />
+                <ScalarProperty Name="CCode" ColumnName="CCode" />
+                <ScalarProperty Name="MCode" ColumnName="MCode" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LibArts">
+            <EntityTypeMapping TypeName="SchedulerModel.LibArt">
+              <MappingFragment StoreEntitySet="LibArts">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Majors">
+            <EntityTypeMapping TypeName="SchedulerModel.Major">
+              <MappingFragment StoreEntitySet="Majors">
+                <ScalarProperty Name="IsMajor" ColumnName="IsMajor" />
+                <ScalarProperty Name="Courses" ColumnName="Courses" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Semesters">
+            <EntityTypeMapping TypeName="SchedulerModel.Semester">
+              <MappingFragment StoreEntitySet="Semesters">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Years">
+            <EntityTypeMapping TypeName="SchedulerModel.Year">
+              <MappingFragment StoreEntitySet="Years">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
