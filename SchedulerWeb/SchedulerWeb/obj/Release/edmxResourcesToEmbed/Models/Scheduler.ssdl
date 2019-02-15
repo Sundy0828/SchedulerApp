@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SchedulerModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Courses">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MCode" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="CCode" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="SCode" Type="nchar" MaxLength="10" />
+    <Property Name="Title" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Prerequisites" Type="nvarchar(max)" />
+    <Property Name="Semester_ID" Type="int" Nullable="false" />
+    <Property Name="Year_ID" Type="int" Nullable="false" />
+    <Property Name="TimePeriodStart" Type="datetime" />
+    <Property Name="TimePeriodEnd" Type="datetime" />
+    <Property Name="Credits" Type="int" Nullable="false" />
+    <Property Name="LibArt_ID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="LibArts">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="100" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Majors">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Courses" Type="nvarchar(max)" />
+    <Property Name="IsMajor" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Semesters">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Years">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Description" Type="nchar" MaxLength="15" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Courses_LibArts">
+    <End Role="LibArts" Type="Self.LibArts" Multiplicity="1" />
+    <End Role="Courses" Type="Self.Courses" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LibArts">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Courses">
+        <PropertyRef Name="LibArt_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Courses_Semesters">
+    <End Role="Semesters" Type="Self.Semesters" Multiplicity="1" />
+    <End Role="Courses" Type="Self.Courses" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Semesters">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Courses">
+        <PropertyRef Name="Semester_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Courses_Years">
+    <End Role="Years" Type="Self.Years" Multiplicity="1" />
+    <End Role="Courses" Type="Self.Courses" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Years">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Courses">
+        <PropertyRef Name="Year_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="SchedulerModelStoreContainer">
+    <EntitySet Name="Courses" EntityType="Self.Courses" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="LibArts" EntityType="Self.LibArts" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Majors" EntityType="Self.Majors" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Semesters" EntityType="Self.Semesters" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Years" EntityType="Self.Years" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Courses_LibArts" Association="Self.FK_Courses_LibArts">
+      <End Role="LibArts" EntitySet="LibArts" />
+      <End Role="Courses" EntitySet="Courses" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Courses_Semesters" Association="Self.FK_Courses_Semesters">
+      <End Role="Semesters" EntitySet="Semesters" />
+      <End Role="Courses" EntitySet="Courses" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Courses_Years" Association="Self.FK_Courses_Years">
+      <End Role="Years" EntitySet="Years" />
+      <End Role="Courses" EntitySet="Courses" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
