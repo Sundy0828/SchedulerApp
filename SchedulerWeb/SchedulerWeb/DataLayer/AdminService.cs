@@ -8,7 +8,7 @@ namespace SchedulerWeb.DataLayer
 {
     public class AdminService : DatabaseService
     {
-        public void CreateCourse(String major, String course, String section, String title, int semester, int year, int LibArt, int credits)
+        public void CreateCourse(String major, String course, String section, String title, int semester, int year, int LibArt, int credits, int school)
         {
             var newCourse = new Course()
             {
@@ -19,7 +19,8 @@ namespace SchedulerWeb.DataLayer
                 Semester_ID = semester,
                 Year_ID = year,
                 LibArt_ID = LibArt,
-                Credits = credits
+                Credits = credits,
+                School_ID = school
             };
 
             this.DB.Courses.Add(newCourse);
@@ -49,12 +50,13 @@ namespace SchedulerWeb.DataLayer
         }
 
 
-        public void CreateMajor(String name, Boolean isMajor)
+        public void CreateMajor(String name, Boolean isMajor, int school)
         {
             var newMajor = new Major()
             {
                 Name = name,
-                IsMajor = isMajor
+                IsMajor = isMajor,
+                School_ID = school
             };
 
             this.DB.Majors.Add(newMajor);

@@ -4,10 +4,15 @@
     <EntitySet Name="Courses" EntityType="SchedulerModel.Course" />
     <EntitySet Name="LibArts" EntityType="SchedulerModel.LibArt" />
     <EntitySet Name="Majors" EntityType="SchedulerModel.Major" />
+    <EntitySet Name="Schools" EntityType="SchedulerModel.School" />
     <EntitySet Name="Semesters" EntityType="SchedulerModel.Semester" />
     <EntitySet Name="Years" EntityType="SchedulerModel.Year" />
     <AssociationSet Name="FK_Courses_LibArts" Association="SchedulerModel.FK_Courses_LibArts">
       <End Role="LibArt" EntitySet="LibArts" />
+      <End Role="Cours" EntitySet="Courses" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Courses_Schools" Association="SchedulerModel.FK_Courses_Schools">
+      <End Role="School" EntitySet="Schools" />
       <End Role="Cours" EntitySet="Courses" />
     </AssociationSet>
     <AssociationSet Name="FK_Courses_Semesters" Association="SchedulerModel.FK_Courses_Semesters">
@@ -18,15 +23,19 @@
       <End Role="Year" EntitySet="Years" />
       <End Role="Cours" EntitySet="Courses" />
     </AssociationSet>
+    <AssociationSet Name="FK_Majors_Schools" Association="SchedulerModel.FK_Majors_Schools">
+      <End Role="School" EntitySet="Schools" />
+      <End Role="Major" EntitySet="Majors" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="Course">
     <Key>
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="MCode" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
-    <Property Name="CCode" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
-    <Property Name="SCode" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="MCode" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="true" />
+    <Property Name="CCode" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="true" />
+    <Property Name="SCode" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
     <Property Name="Title" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
     <Property Name="Prerequisites" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="Semester_ID" Type="Int32" Nullable="false" />
@@ -35,7 +44,9 @@
     <Property Name="TimePeriodEnd" Type="DateTime" Precision="3" />
     <Property Name="Credits" Type="Int32" Nullable="false" />
     <Property Name="LibArt_ID" Type="Int32" Nullable="false" />
+    <Property Name="School_ID" Type="Int32" Nullable="false" />
     <NavigationProperty Name="LibArt" Relationship="SchedulerModel.FK_Courses_LibArts" FromRole="Cours" ToRole="LibArt" />
+    <NavigationProperty Name="School" Relationship="SchedulerModel.FK_Courses_Schools" FromRole="Cours" ToRole="School" />
     <NavigationProperty Name="Semester" Relationship="SchedulerModel.FK_Courses_Semesters" FromRole="Cours" ToRole="Semester" />
     <NavigationProperty Name="Year" Relationship="SchedulerModel.FK_Courses_Years" FromRole="Cours" ToRole="Year" />
   </EntityType>
@@ -55,6 +66,19 @@
     <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="Courses" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="IsMajor" Type="Boolean" Nullable="false" />
+    <Property Name="School_ID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="School" Relationship="SchedulerModel.FK_Majors_Schools" FromRole="Major" ToRole="School" />
+  </EntityType>
+  <EntityType Name="School">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SchoolName" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Courses" Relationship="SchedulerModel.FK_Courses_Schools" FromRole="School" ToRole="Cours" />
+    <NavigationProperty Name="Majors" Relationship="SchedulerModel.FK_Majors_Schools" FromRole="School" ToRole="Major" />
+    <Property Name="PrimaryColor" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="SecondayColor" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="Semester">
     <Key>
@@ -69,7 +93,7 @@
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Description" Type="String" Nullable="false" MaxLength="15" FixedLength="true" Unicode="true" />
+    <Property Name="Description" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Courses" Relationship="SchedulerModel.FK_Courses_Years" FromRole="Year" ToRole="Cours" />
   </EntityType>
   <Association Name="FK_Courses_LibArts">
@@ -81,6 +105,18 @@
       </Principal>
       <Dependent Role="Cours">
         <PropertyRef Name="LibArt_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Courses_Schools">
+    <End Type="SchedulerModel.School" Role="School" Multiplicity="1" />
+    <End Type="SchedulerModel.Course" Role="Cours" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="School">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Cours">
+        <PropertyRef Name="School_ID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -105,6 +141,18 @@
       </Principal>
       <Dependent Role="Cours">
         <PropertyRef Name="Year_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Majors_Schools">
+    <End Type="SchedulerModel.School" Role="School" Multiplicity="1" />
+    <End Type="SchedulerModel.Major" Role="Major" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="School">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Major">
+        <PropertyRef Name="School_ID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

@@ -382,3 +382,9 @@ E:\My Projects\SchedulerApp\SchedulerWeb\SchedulerWeb\obj\Debug\SchedulerWeb.csp
 E:\My Projects\SchedulerApp\SchedulerWeb\SchedulerWeb\obj\Debug\SchedulerWeb.csproj.CopyComplete
 E:\My Projects\SchedulerApp\SchedulerWeb\SchedulerWeb\obj\Debug\SchedulerWeb.dll
 E:\My Projects\SchedulerApp\SchedulerWeb\SchedulerWeb\obj\Debug\SchedulerWeb.pdb
+E:\My Projects\SchedulerApp\SchedulerWeb\SchedulerWeb\bin\System.Net.Http.Formatting.dll
+E:\My Projects\SchedulerApp\SchedulerWeb\SchedulerWeb\bin\System.Web.Http.dll
+E:\My Projects\SchedulerApp\SchedulerWeb\SchedulerWeb\bin\System.Net.Http.Formatting.xml
+E:\My Projects\SchedulerApp\SchedulerWeb\SchedulerWeb\bin\System.Web.Http.xml
+E:\My Projects\SchedulerApp\SchedulerWeb\SchedulerWeb\bin\System.Web.Http.WebHost.dll
+E:\My Projects\SchedulerApp\SchedulerWeb\SchedulerWeb\bin\System.Web.Http.WebHost.xml

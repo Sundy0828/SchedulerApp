@@ -18,5 +18,8 @@ namespace SchedulerWeb.Models
         public string Name { get; set; }
         public string Courses { get; set; }
         public bool IsMajor { get; set; }
+        public int School_ID { get; set; }
+    
+        public virtual School School { get; set; }
     }
 }

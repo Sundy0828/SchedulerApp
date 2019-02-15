@@ -10,9 +10,9 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="MCode" Type="nchar" MaxLength="10" Nullable="false" />
-          <Property Name="CCode" Type="nchar" MaxLength="10" Nullable="false" />
-          <Property Name="SCode" Type="nchar" MaxLength="10" />
+          <Property Name="MCode" Type="nvarchar" MaxLength="3" Nullable="false" />
+          <Property Name="CCode" Type="nvarchar" MaxLength="3" Nullable="false" />
+          <Property Name="SCode" Type="nvarchar" MaxLength="2" />
           <Property Name="Title" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="Prerequisites" Type="nvarchar(max)" />
           <Property Name="Semester_ID" Type="int" Nullable="false" />
@@ -21,6 +21,7 @@
           <Property Name="TimePeriodEnd" Type="datetime" />
           <Property Name="Credits" Type="int" Nullable="false" />
           <Property Name="LibArt_ID" Type="int" Nullable="false" />
+          <Property Name="School_ID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="LibArts">
           <Key>
@@ -37,6 +38,16 @@
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Courses" Type="nvarchar(max)" />
           <Property Name="IsMajor" Type="bit" Nullable="false" />
+          <Property Name="School_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Schools">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SchoolName" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="PrimaryColor" Type="nvarchar" MaxLength="50" />
+          <Property Name="SecondayColor" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Semesters">
           <Key>
@@ -50,7 +61,7 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Description" Type="nchar" MaxLength="15" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <Association Name="FK_Courses_LibArts">
           <End Role="LibArts" Type="Self.LibArts" Multiplicity="1" />
@@ -61,6 +72,18 @@
             </Principal>
             <Dependent Role="Courses">
               <PropertyRef Name="LibArt_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Courses_Schools">
+          <End Role="Schools" Type="Self.Schools" Multiplicity="1" />
+          <End Role="Courses" Type="Self.Courses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Schools">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Courses">
+              <PropertyRef Name="School_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -88,14 +111,31 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Majors_Schools">
+          <End Role="Schools" Type="Self.Schools" Multiplicity="1" />
+          <End Role="Majors" Type="Self.Majors" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Schools">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Majors">
+              <PropertyRef Name="School_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="SchedulerModelStoreContainer">
           <EntitySet Name="Courses" EntityType="Self.Courses" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LibArts" EntityType="Self.LibArts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Majors" EntityType="Self.Majors" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Schools" EntityType="Self.Schools" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Semesters" EntityType="Self.Semesters" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Years" EntityType="Self.Years" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Courses_LibArts" Association="Self.FK_Courses_LibArts">
             <End Role="LibArts" EntitySet="LibArts" />
+            <End Role="Courses" EntitySet="Courses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Courses_Schools" Association="Self.FK_Courses_Schools">
+            <End Role="Schools" EntitySet="Schools" />
             <End Role="Courses" EntitySet="Courses" />
           </AssociationSet>
           <AssociationSet Name="FK_Courses_Semesters" Association="Self.FK_Courses_Semesters">
@@ -106,6 +146,10 @@
             <End Role="Years" EntitySet="Years" />
             <End Role="Courses" EntitySet="Courses" />
           </AssociationSet>
+          <AssociationSet Name="FK_Majors_Schools" Association="Self.FK_Majors_Schools">
+            <End Role="Schools" EntitySet="Schools" />
+            <End Role="Majors" EntitySet="Majors" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -115,10 +159,15 @@
           <EntitySet Name="Courses" EntityType="SchedulerModel.Course" />
           <EntitySet Name="LibArts" EntityType="SchedulerModel.LibArt" />
           <EntitySet Name="Majors" EntityType="SchedulerModel.Major" />
+          <EntitySet Name="Schools" EntityType="SchedulerModel.School" />
           <EntitySet Name="Semesters" EntityType="SchedulerModel.Semester" />
           <EntitySet Name="Years" EntityType="SchedulerModel.Year" />
           <AssociationSet Name="FK_Courses_LibArts" Association="SchedulerModel.FK_Courses_LibArts">
             <End Role="LibArt" EntitySet="LibArts" />
+            <End Role="Cours" EntitySet="Courses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Courses_Schools" Association="SchedulerModel.FK_Courses_Schools">
+            <End Role="School" EntitySet="Schools" />
             <End Role="Cours" EntitySet="Courses" />
           </AssociationSet>
           <AssociationSet Name="FK_Courses_Semesters" Association="SchedulerModel.FK_Courses_Semesters">
@@ -129,15 +178,19 @@
             <End Role="Year" EntitySet="Years" />
             <End Role="Cours" EntitySet="Courses" />
           </AssociationSet>
+          <AssociationSet Name="FK_Majors_Schools" Association="SchedulerModel.FK_Majors_Schools">
+            <End Role="School" EntitySet="Schools" />
+            <End Role="Major" EntitySet="Majors" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Course">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="MCode" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="CCode" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="SCode" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="MCode" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="true" />
+          <Property Name="CCode" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="true" />
+          <Property Name="SCode" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
           <Property Name="Title" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Prerequisites" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Semester_ID" Type="Int32" Nullable="false" />
@@ -146,7 +199,9 @@
           <Property Name="TimePeriodEnd" Type="DateTime" Precision="3" />
           <Property Name="Credits" Type="Int32" Nullable="false" />
           <Property Name="LibArt_ID" Type="Int32" Nullable="false" />
+          <Property Name="School_ID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="LibArt" Relationship="SchedulerModel.FK_Courses_LibArts" FromRole="Cours" ToRole="LibArt" />
+          <NavigationProperty Name="School" Relationship="SchedulerModel.FK_Courses_Schools" FromRole="Cours" ToRole="School" />
           <NavigationProperty Name="Semester" Relationship="SchedulerModel.FK_Courses_Semesters" FromRole="Cours" ToRole="Semester" />
           <NavigationProperty Name="Year" Relationship="SchedulerModel.FK_Courses_Years" FromRole="Cours" ToRole="Year" />
         </EntityType>
@@ -166,6 +221,19 @@
           <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Courses" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="IsMajor" Type="Boolean" Nullable="false" />
+          <Property Name="School_ID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="School" Relationship="SchedulerModel.FK_Majors_Schools" FromRole="Major" ToRole="School" />
+        </EntityType>
+        <EntityType Name="School">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SchoolName" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Courses" Relationship="SchedulerModel.FK_Courses_Schools" FromRole="School" ToRole="Cours" />
+          <NavigationProperty Name="Majors" Relationship="SchedulerModel.FK_Majors_Schools" FromRole="School" ToRole="Major" />
+          <Property Name="PrimaryColor" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SecondayColor" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Semester">
           <Key>
@@ -180,7 +248,7 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Description" Type="String" Nullable="false" MaxLength="15" FixedLength="true" Unicode="true" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Courses" Relationship="SchedulerModel.FK_Courses_Years" FromRole="Year" ToRole="Cours" />
         </EntityType>
         <Association Name="FK_Courses_LibArts">
@@ -192,6 +260,18 @@
             </Principal>
             <Dependent Role="Cours">
               <PropertyRef Name="LibArt_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Courses_Schools">
+          <End Type="SchedulerModel.School" Role="School" Multiplicity="1" />
+          <End Type="SchedulerModel.Course" Role="Cours" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="School">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Cours">
+              <PropertyRef Name="School_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -219,6 +299,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Majors_Schools">
+          <End Type="SchedulerModel.School" Role="School" Multiplicity="1" />
+          <End Type="SchedulerModel.Major" Role="Major" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="School">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Major">
+              <PropertyRef Name="School_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -228,6 +320,7 @@
           <EntitySetMapping Name="Courses">
             <EntityTypeMapping TypeName="SchedulerModel.Course">
               <MappingFragment StoreEntitySet="Courses">
+                <ScalarProperty Name="School_ID" ColumnName="School_ID" />
                 <ScalarProperty Name="LibArt_ID" ColumnName="LibArt_ID" />
                 <ScalarProperty Name="Credits" ColumnName="Credits" />
                 <ScalarProperty Name="TimePeriodEnd" ColumnName="TimePeriodEnd" />
@@ -254,9 +347,20 @@
           <EntitySetMapping Name="Majors">
             <EntityTypeMapping TypeName="SchedulerModel.Major">
               <MappingFragment StoreEntitySet="Majors">
+                <ScalarProperty Name="School_ID" ColumnName="School_ID" />
                 <ScalarProperty Name="IsMajor" ColumnName="IsMajor" />
                 <ScalarProperty Name="Courses" ColumnName="Courses" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Schools">
+            <EntityTypeMapping TypeName="SchedulerModel.School">
+              <MappingFragment StoreEntitySet="Schools">
+                <ScalarProperty Name="SecondayColor" ColumnName="SecondayColor" />
+                <ScalarProperty Name="PrimaryColor" ColumnName="PrimaryColor" />
+                <ScalarProperty Name="SchoolName" ColumnName="SchoolName" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

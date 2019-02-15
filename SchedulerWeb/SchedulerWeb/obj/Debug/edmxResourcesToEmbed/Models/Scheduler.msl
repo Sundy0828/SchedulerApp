@@ -4,6 +4,7 @@
     <EntitySetMapping Name="Courses">
       <EntityTypeMapping TypeName="SchedulerModel.Course">
         <MappingFragment StoreEntitySet="Courses">
+          <ScalarProperty Name="School_ID" ColumnName="School_ID" />
           <ScalarProperty Name="LibArt_ID" ColumnName="LibArt_ID" />
           <ScalarProperty Name="Credits" ColumnName="Credits" />
           <ScalarProperty Name="TimePeriodEnd" ColumnName="TimePeriodEnd" />
@@ -30,9 +31,20 @@
     <EntitySetMapping Name="Majors">
       <EntityTypeMapping TypeName="SchedulerModel.Major">
         <MappingFragment StoreEntitySet="Majors">
+          <ScalarProperty Name="School_ID" ColumnName="School_ID" />
           <ScalarProperty Name="IsMajor" ColumnName="IsMajor" />
           <ScalarProperty Name="Courses" ColumnName="Courses" />
           <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Schools">
+      <EntityTypeMapping TypeName="SchedulerModel.School">
+        <MappingFragment StoreEntitySet="Schools">
+          <ScalarProperty Name="SecondayColor" ColumnName="SecondayColor" />
+          <ScalarProperty Name="PrimaryColor" ColumnName="PrimaryColor" />
+          <ScalarProperty Name="SchoolName" ColumnName="SchoolName" />
           <ScalarProperty Name="ID" ColumnName="ID" />
         </MappingFragment>
       </EntityTypeMapping>

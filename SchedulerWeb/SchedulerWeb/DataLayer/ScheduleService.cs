@@ -4,12 +4,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Http;
 
 namespace SchedulerWeb.DataLayer
 {
     public class ScheduleService : DatabaseService
     {
-        public List<Course> getLibArtCourses()
+        public List<Course> getLibArtCourses(int schoolID)
         {
             // loop through lib art major courses
             var major = getMajor(4);
@@ -18,7 +19,7 @@ namespace SchedulerWeb.DataLayer
             foreach (var courseCode in majorCourses)
             {
                 // add lib art courses if not in list
-                var courseItem = getCourse(courseCode);
+                var courseItem = getCourse(courseCode, schoolID);
                 if (!courseList.Contains(courseItem))
                 {
                     courseList.Add(courseItem);
@@ -26,7 +27,7 @@ namespace SchedulerWeb.DataLayer
             }
             return courseList.OrderBy(c => c.CCode).ToList();
         }
-        public List<Course> getMajorCourses(List<int> staticMajors)
+        public List<Course> getMajorCourses(List<int> staticMajors, int schoolID)
         {
             // loop through majors
             var courseList = new List<Course>();
@@ -38,7 +39,7 @@ namespace SchedulerWeb.DataLayer
                 foreach (var courseCode in majorCourses)
                 {
                     // add major if not in list
-                    var courseItem = getCourse(courseCode);
+                    var courseItem = getCourse(courseCode, schoolID);
                     if (!courseList.Contains(courseItem))
                     {
                         courseList.Add(courseItem);
@@ -52,7 +53,7 @@ namespace SchedulerWeb.DataLayer
         private Dictionary<Course, int> priorityList = new Dictionary<Course, int>();
         // this is to add priority to courses, Programming 1 gets higher priority since
         // it is the bottom of the tree and needed for everything
-        public void priorityListLoop(List<Course> courseList, int priorityCount = 0)
+        public void priorityListLoop(List<Course> courseList, int schoolID, int priorityCount = 0)
         {
             // loop through all courses
             foreach (var course in courseList)
@@ -67,7 +68,7 @@ namespace SchedulerWeb.DataLayer
                     // loop through prerequisites and add them to list
                     foreach (var courseCode in majorCourses)
                     {
-                        var courseItem = getCourse(courseCode);
+                        var courseItem = getCourse(courseCode, schoolID);
                         prerequisitesList.Add(courseItem);
                     }
                     // go back through list to make sure base values get more priority
@@ -76,13 +77,13 @@ namespace SchedulerWeb.DataLayer
                     {
                         count += 1;
                     }
-                    priorityListLoop(prerequisitesList, count);
+                    priorityListLoop(prerequisitesList, schoolID, count);
                 }
                 priorityList[course] += priorityCount + 1;
             }
         }
         // loop through course to check if prerequisites are met
-        public Course getNextCourse(Course course, List<Course> taken, List<Course> curTaken)
+        public Course getNextCourse(Course course, List<Course> taken, List<Course> curTaken, int schoolID)
         {
             var courseHolder = course;
             // if no prerequisites just return course
@@ -98,7 +99,7 @@ namespace SchedulerWeb.DataLayer
                 foreach (var courseCode in majorCourses)
                 {
                     // if course not taken loop through that course to check if prerequisites are met
-                    var courseItem = getCourse(courseCode);
+                    var courseItem = getCourse(courseCode, schoolID);
                     // if junior status and prerequisites are currently being taken
                     if (taken.Sum(t => t.Credits) >= 60)
                     {
@@ -121,10 +122,10 @@ namespace SchedulerWeb.DataLayer
                 foreach (var courseCode in majorCourses)
                 {
                     // if course not taken loop through that course to check if prerequisites are met
-                    var courseItem = getCourse(courseCode);
+                    var courseItem = getCourse(courseCode, schoolID);
                     if (!taken.Contains(courseItem))
                     {
-                        courseHolder = getNextCourse(courseItem, taken, curTaken);
+                        courseHolder = getNextCourse(courseItem, taken, curTaken, schoolID);
                     }
                 }
                 // return most base course based off taken courses
@@ -133,7 +134,7 @@ namespace SchedulerWeb.DataLayer
             }
         }
 
-        public List<FinalSchedule> getFinalSchedule(List<Course> libArt2, List<Course> courseList2, String startSem, int startYear, int maxCredits, int maxSem)
+        public List<FinalSchedule> getFinalSchedule(List<Course> libArt2, List<Course> courseList2, String startSem, int startYear, int maxCredits, int maxSem, int schoolID)
         {
             // generic values to keep track of data
             var currentCredits = 0;
@@ -157,7 +158,7 @@ namespace SchedulerWeb.DataLayer
                 priorityList.Add(course, 0);
             }
             // set priority to each course and order by priority
-            priorityListLoop(courseList);
+            priorityListLoop(courseList, schoolID);
             priorityList = priorityList.OrderByDescending(x => x.Value).ToDictionary(x => x.Key, x => x.Value);
 
             // loop through until all courses are completed
@@ -203,7 +204,7 @@ namespace SchedulerWeb.DataLayer
                             if (curCourseList.Contains(item.Key))
                             {
                                 // get next course, based off taken courses
-                                var course = getNextCourse(item.Key, taken, curTaken);
+                                var course = getNextCourse(item.Key, taken, curTaken, schoolID);
                                 // check if course was taken yet based off taken courses
                                 if (!curTaken.Contains(course))
                                 {
@@ -259,7 +260,7 @@ namespace SchedulerWeb.DataLayer
                 var semester = new FinalSchedule(){
                     currSem = currentSem,
                     currYear = currentYear.ToString(),
-                    currCredits = currentCredits.ToString(),
+                    currCredits = currentCredits + " / " + (taken.Sum(t => t.Credits) + currentCredits),
                     courses = courses
                 };
                 finalSchedule.Add(semester);
@@ -292,7 +293,7 @@ namespace SchedulerWeb.DataLayer
                 {
                     currSem = one,
                     currYear = two,
-                    currCredits = courseList.Sum(t => t.Credits).ToString(),
+                    currCredits = courseList.Sum(t => t.Credits) + " / " + (taken.Sum(t => t.Credits) + courseList.Sum(t => t.Credits)),
                     courses = courseList
                 };
                 finalSchedule.Add(leftovers);

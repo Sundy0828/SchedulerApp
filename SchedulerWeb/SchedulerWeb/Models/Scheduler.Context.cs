@@ -28,6 +28,7 @@ namespace SchedulerWeb.Models
         public virtual DbSet<Course> Courses { get; set; }
         public virtual DbSet<LibArt> LibArts { get; set; }
         public virtual DbSet<Major> Majors { get; set; }
+        public virtual DbSet<School> Schools { get; set; }
         public virtual DbSet<Semester> Semesters { get; set; }
         public virtual DbSet<Year> Years { get; set; }
     }
