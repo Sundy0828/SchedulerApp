@@ -20,7 +20,9 @@ namespace SchedulerWeb.Controllers
         // GET: Admin
         public ActionResult Majors()
         {
-            var majors = adminService.getMajors();
+            // generic School id
+            int schoolID = 1;
+            var majors = adminService.getMajors(schoolID);
             ViewBag.majors = majors;
             return View();
         }
@@ -34,10 +36,12 @@ namespace SchedulerWeb.Controllers
         // GET: Admin
         public ActionResult EditMajor(int id)
         {
+            // generic School id
+            int schoolID = 1;
             var major = adminService.getMajor(id);
             var holder = major.Courses == null ? "" : major.Courses;
             var majorCourses = holder;
-            var courses = adminService.getCourses();
+            var courses = adminService.getCourses(schoolID);
             ViewBag.major = major;
             ViewBag.courses = courses;
             ViewBag.majorCourses = majorCourses;
@@ -47,7 +51,9 @@ namespace SchedulerWeb.Controllers
         // GET: Admin
         public ActionResult CreateMajor(String name, String isMajor)
         {
-            adminService.CreateMajor(name, isMajor == "on");
+            // generic School id
+            int schoolID = 1;
+            adminService.CreateMajor(name, isMajor == "on", schoolID);
             return RedirectToAction("Majors", "Admin");
         }
 
@@ -73,7 +79,9 @@ namespace SchedulerWeb.Controllers
         // GET: Admin
         public ActionResult Courses()
         {
-            var courses = adminService.getCourses();
+            // generic School id
+            int schoolID = 1;
+            var courses = adminService.getCourses(schoolID);
             ViewBag.courses = courses;
             return View();
         }
@@ -93,11 +101,13 @@ namespace SchedulerWeb.Controllers
         // GET: Admin
         public ActionResult EditCourse(int id)
         {
+            // generic School id
+            int schoolID = 1;
             var semester = adminService.getSemesters();
             var year = adminService.getYears();
             var libArt = adminService.getLibArts();
             var course = adminService.getCourse(id);
-            var courses = adminService.getCoursesForPrerequisites(course.ID);
+            var courses = adminService.getCoursesForPrerequisites(course.ID, schoolID);
             var holder = course.Prerequisites == null ? "" : course.Prerequisites;
             var coursePrerequisites = holder;
             ViewBag.semester = semester;
@@ -112,7 +122,9 @@ namespace SchedulerWeb.Controllers
         // GET: Admin
         public ActionResult CreateCourse(String major, String course, String section, String title, int semester, int year, int LibArt, int credits)
         {
-            adminService.CreateCourse(major, course, section, title, semester, year, LibArt, credits);
+            // generic School id
+            int schoolID = 1;
+            adminService.CreateCourse(major, course, section, title, semester, year, LibArt, credits, schoolID);
             return RedirectToAction("Courses", "Admin");
         }
 

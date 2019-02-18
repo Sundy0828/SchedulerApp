@@ -5,14 +5,17 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="2599680116ee4544a41b54edd83f4f19" Name="Diagram1">
-        <EntityTypeShape EntityType="SchedulerModel.Course" Width="1.5" PointX="3" PointY="2.375" />
-        <EntityTypeShape EntityType="SchedulerModel.LibArt" Width="1.5" PointX="0.75" PointY="6.375" />
-        <EntityTypeShape EntityType="SchedulerModel.Major" Width="1.5" PointX="5.75" PointY="2.125" />
-        <EntityTypeShape EntityType="SchedulerModel.Semester" Width="1.5" PointX="0.75" PointY="0.75" />
-        <EntityTypeShape EntityType="SchedulerModel.Year" Width="1.5" PointX="0.75" PointY="3.625" />
+        <EntityTypeShape EntityType="SchedulerModel.Course" Width="1.5" PointX="4.625" PointY="3.125" />
+        <EntityTypeShape EntityType="SchedulerModel.LibArt" Width="1.5" PointX="7" PointY="3.125" />
+        <EntityTypeShape EntityType="SchedulerModel.Major" Width="1.5" PointX="2.25" PointY="0.5" />
+        <EntityTypeShape EntityType="SchedulerModel.School" Width="1.5" PointX="4.625" PointY="0.5" />
+        <EntityTypeShape EntityType="SchedulerModel.Semester" Width="1.5" PointX="2.25" PointY="3.125" />
+        <EntityTypeShape EntityType="SchedulerModel.Year" Width="1.5" PointX="2.25" PointY="5.25" />
         <AssociationConnector Association="SchedulerModel.FK_Courses_LibArts" />
+        <AssociationConnector Association="SchedulerModel.FK_Courses_Schools" />
         <AssociationConnector Association="SchedulerModel.FK_Courses_Semesters" />
         <AssociationConnector Association="SchedulerModel.FK_Courses_Years" />
+        <AssociationConnector Association="SchedulerModel.FK_Majors_Schools" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

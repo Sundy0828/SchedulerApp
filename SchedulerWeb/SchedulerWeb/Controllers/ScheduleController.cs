@@ -21,13 +21,16 @@ namespace SchedulerWeb.Controllers
         // GET: Schedule
         public ActionResult Index()
         {
+            // generic School id
+            int schoolID = 1;
+
             // fake majors 1 ~ Comp Sci, 3 ~ CyberSecurity
             var staticMajors = new List<int>() { 1, 3 };
 
             // lib art courses
-            var libArts = scheduleService.getLibArtCourses();
+            var libArts = scheduleService.getLibArtCourses(schoolID);
             // courses for major
-            var courseList = scheduleService.getMajorCourses(staticMajors);
+            var courseList = scheduleService.getMajorCourses(staticMajors, schoolID);
 
             // remove any lib arts that come with the major
             foreach (var course in courseList)
@@ -41,12 +44,8 @@ namespace SchedulerWeb.Controllers
             courseList.Remove(courseList.Where(c => c.MCode == "SCY" && c.CCode == "430").FirstOrDefault());
 
             // get final schedule
-            var finalSchedule = scheduleService.getFinalSchedule(libArts, courseList, "Fall", 2019, 17, 8);
+            var finalSchedule = scheduleService.getFinalSchedule(libArts, courseList, "Fall", 2019, 17, 8, schoolID);
             ViewBag.finalSchedule = finalSchedule;
-
-
-            //var courses = courseList.Concat(libArts);
-            //ViewBag.courses = courses.OrderBy(c => c.CCode).ThenBy(c => c.MCode);
 
             return View();
         }

@@ -26,8 +26,10 @@ namespace SchedulerWeb.Models
         public Nullable<System.DateTime> TimePeriodEnd { get; set; }
         public int Credits { get; set; }
         public int LibArt_ID { get; set; }
+        public int School_ID { get; set; }
     
         public virtual LibArt LibArt { get; set; }
+        public virtual School School { get; set; }
         public virtual Semester Semester { get; set; }
         public virtual Year Year { get; set; }
     }

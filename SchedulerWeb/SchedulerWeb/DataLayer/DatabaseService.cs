@@ -15,33 +15,33 @@ namespace SchedulerWeb.DataLayer
             this.DB = new SchedulerEntities();
         }
 
-        public List<Major> getMajors()
+        public List<Major> getMajors(int schoolID)
         {
-            return this.DB.Majors.OrderBy(m => m.Name).ToList();
+            return this.DB.Majors.Where(m => m.School_ID == schoolID).OrderBy(m => m.Name).ToList();
         }
         public Major getMajor(int id)
         {
             return this.DB.Majors.Where(m => m.ID == id).FirstOrDefault();
         }
 
-        public List<Course> getCourses()
+        public List<Course> getCourses(int schoolID)
         {
-            return this.DB.Courses.OrderBy(c => c.MCode).ThenBy(n => n.CCode).ToList();
+            return this.DB.Courses.Where(c => c.School_ID == schoolID).OrderBy(c => c.MCode).ThenBy(n => n.CCode).ToList();
         }
-        public List<Course> getCoursesForPrerequisites(int id)
+        public List<Course> getCoursesForPrerequisites(int id, int schoolID)
         {
-            return this.DB.Courses.Where(c => c.ID != id).ToList();
+            return this.DB.Courses.Where(c => c.ID != id && c.School_ID == schoolID).ToList();
         }
         public Course getCourse(int id)
         {
             return this.DB.Courses.Where(m => m.ID == id).FirstOrDefault();
         }
-        public Course getCourse(String courseCode)
+        public Course getCourse(String courseCode, int schoolID)
         {
             var course = courseCode.Split(' ');
             var MCode = course[0];
             var CCode = course[1];
-            return this.DB.Courses.Where(c => c.MCode == MCode && c.CCode == CCode).FirstOrDefault();
+            return this.DB.Courses.Where(c => c.MCode == MCode && c.CCode == CCode && c.School_ID == schoolID).FirstOrDefault();
         }
         public List<LibArt> getLibArts()
         {
