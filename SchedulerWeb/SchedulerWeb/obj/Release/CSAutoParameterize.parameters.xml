@@ -1,6 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<parameters>
-  <parameter name="SchedulerEntities-Web.config Connection String" description="SchedulerEntities Connection String used in web.config by the application to access the database." defaultValue="metadata=res://*/Models.Scheduler.csdl|res://*/Models.Scheduler.ssdl|res://*/Models.Scheduler.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=shuscheduler.database.windows.net;initial catalog=Scheduler;user id=jsunderland;password=Jerrod!0828;multipleactiveresultsets=True;application name=EntityFramework&quot;" tags="SqlConnectionString">
-    <parameterEntry kind="XmlFile" scope="E:\\My\ Projects\\SchedulerApp\\SchedulerWeb\\SchedulerWeb\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='SchedulerEntities']/@connectionString" />
-  </parameter>
-</parameters>
