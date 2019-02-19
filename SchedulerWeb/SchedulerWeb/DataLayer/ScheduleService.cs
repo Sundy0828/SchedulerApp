@@ -10,6 +10,10 @@ namespace SchedulerWeb.DataLayer
 {
     public class ScheduleService : DatabaseService
     {
+        public List<School> getSchools()
+        {
+            return this.DB.Schools.ToList();
+        }
         public List<Course> getLibArtCourses(int schoolID)
         {
             // loop through lib art major courses

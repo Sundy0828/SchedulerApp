@@ -20,6 +20,85 @@ namespace SchedulerWeb.Controllers
             this.scheduleService = new ScheduleService();
         }
 
+        [HttpGet]
+        [ActionName("GetSchools")]
+        public IHttpActionResult GetSchools()
+        {
+            var schoolList = scheduleService.getSchools();
+
+            var schools = schoolList.Select(school => new
+            {
+                ID = school.ID,
+                SchoolName = school.SchoolName
+            });
+
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            var output = serializer.Serialize(schools);
+            var test = JsonConvert.DeserializeObject<dynamic>(output);
+            return Json(new { Schools = test });
+        }
+
+        [HttpGet]
+        [ActionName("GetLibArtCourses")]
+        public IHttpActionResult GetLibArtCourses()
+        {
+            // generic School id
+            int schoolID = 1;
+
+            // lib art courses
+            var libArts = scheduleService.getLibArtCourses(schoolID);
+
+            var courses = libArts.Select(course => new
+            {
+                ID = course.ID,
+                MCode = course.MCode,
+                CCode = course.CCode,
+                SCode = course.SCode,
+                Title = course.Title,
+                Prerequisites = course.Prerequisites,
+                Semester = course.Semester.Description,
+                Year = course.Year.Description,
+                Credits = course.Credits,
+                LibArt = course.LibArt.Description
+            });
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            var output = serializer.Serialize(courses);
+            var test = JsonConvert.DeserializeObject<dynamic>(output);
+            return Json(new { LACourses = test });
+        }
+
+        [HttpGet]
+        [ActionName("GetMajorCourses")]
+        public IHttpActionResult GetMajorCourses()
+        {
+            // generic School id
+            int schoolID = 1;
+
+            // fake majors 1 ~ Comp Sci, 3 ~ CyberSecurity
+            var staticMajors = new List<int>() { 1, 3 };
+            
+            // courses for major
+            var courseList = scheduleService.getMajorCourses(staticMajors, schoolID);
+
+            var courses = courseList.Select(course => new
+            {
+                ID = course.ID,
+                MCode = course.MCode,
+                CCode = course.CCode,
+                SCode = course.SCode,
+                Title = course.Title,
+                Prerequisites = course.Prerequisites,
+                Semester = course.Semester.Description,
+                Year = course.Year.Description,
+                Credits = course.Credits,
+                LibArt = course.LibArt.Description
+            });
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            var output = serializer.Serialize(courses);
+            var test = JsonConvert.DeserializeObject<dynamic>(output);
+            return Json(new { MMCourses = test });
+        }
+
         // GET: API
         [HttpGet]
         [ActionName("GetFinalSchedule")]
