@@ -158,6 +158,14 @@
                 "order": [],
                 "columnDefs": [
                     { "orderable": false, "targets": 0 }
+                ],
+                buttons: [
+                    {
+                        text: 'Add Prerequisites',
+                        action: function (e, dt, node, config) {
+                            dt.ajax.reload();
+                        }
+                    }
                 ]
             });
         });
