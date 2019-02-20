@@ -10,28 +10,30 @@ import Foundation
 import UIKit
 
 struct School: Decodable {
-    let ID: Int
-    let SchoolName: String
+    let ID: Int?
+    let SchoolName: String?
+    let PrimaryColor: String?
+    let SecondaryColor: String?
 }
 
 struct Courses: Decodable {
-    let ID: Int
-    let MCode: String
-    let CCode: String
-    let SCode: String
-    let Title: String
-    let Prerequisites: String
-    let Semester: String
-    let Year: String
-    let Credits: Int
-    let LibArt: String
+    let ID: Int?
+    let MCode: String?
+    let CCode: String?
+    let SCode: String?
+    let Title: String?
+    let Prerequisites: String?
+    let Semester: String?
+    let Year: String?
+    let Credits: Int?
+    let LibArt: String?
 }
 
 struct Semesters: Decodable {
-    let semester: String
-    let year: String
-    let credits: String
-    let courses: [Courses]
+    let semester: String?
+    let year: String?
+    let credits: String?
+    let courses: [Courses]?
 }
 
 class DataController : UITableViewController {
