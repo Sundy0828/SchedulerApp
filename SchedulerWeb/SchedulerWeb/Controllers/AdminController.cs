@@ -120,6 +120,19 @@ namespace SchedulerWeb.Controllers
         }
 
         // GET: Admin
+        public ActionResult CoursesNeeded(int courseID)
+        {
+            // generic School id
+            int schoolID = 1;
+            var course = adminService.getCourse(courseID);
+            var courses = adminService.getCoursesForPrerequisites(course.ID, schoolID);
+            var coursePrerequisites = course.Prerequisites == null ? "" : course.Prerequisites;
+            ViewBag.courses = courses;
+            ViewBag.coursePrerequisites = coursePrerequisites;
+            return PartialView();
+        }
+
+        // GET: Admin
         public ActionResult CreateCourse(String major, String course, String section, String title, int semester, int year, int LibArt, int credits)
         {
             // generic School id
