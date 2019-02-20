@@ -19,6 +19,7 @@
 		A486137F221C780400878795 /* TakenMMController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A486137E221C780400878795 /* TakenMMController.swift */; };
 		A4861381221C781300878795 /* TakenLibArtController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4861380221C781300878795 /* TakenLibArtController.swift */; };
 		A4861383221C784F00878795 /* FinalScheduleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4861382221C784F00878795 /* FinalScheduleController.swift */; };
+		A48613A9221D044300878795 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A48613A8221D044300878795 /* DataController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		A486137E221C780400878795 /* TakenMMController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TakenMMController.swift; sourceTree = "<group>"; };
 		A4861380221C781300878795 /* TakenLibArtController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TakenLibArtController.swift; sourceTree = "<group>"; };
 		A4861382221C784F00878795 /* FinalScheduleController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinalScheduleController.swift; sourceTree = "<group>"; };
+		A48613A8221D044300878795 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +83,7 @@
 				A486137E221C780400878795 /* TakenMMController.swift */,
 				A4861380221C781300878795 /* TakenLibArtController.swift */,
 				A4861382221C784F00878795 /* FinalScheduleController.swift */,
+				A48613A8221D044300878795 /* DataController.swift */,
 			);
 			path = SchedulerIOS;
 			sourceTree = "<group>";
@@ -161,6 +164,7 @@
 				A422C0D72215EB0200265B55 /* ViewController.swift in Sources */,
 				A4861383221C784F00878795 /* FinalScheduleController.swift in Sources */,
 				A4861381221C781300878795 /* TakenLibArtController.swift in Sources */,
+				A48613A9221D044300878795 /* DataController.swift in Sources */,
 				A486137F221C780400878795 /* TakenMMController.swift in Sources */,
 				A422C0D52215EB0200265B55 /* AppDelegate.swift in Sources */,
 				A4861377221C774C00878795 /* SchoolController.swift in Sources */,

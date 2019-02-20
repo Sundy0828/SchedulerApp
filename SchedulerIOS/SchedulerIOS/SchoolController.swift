@@ -9,11 +9,12 @@
 import Foundation
 import UIKit
 
-class SchoolController: UIViewController {
+class SchoolController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
     }
     
     
