@@ -29,13 +29,15 @@ namespace SchedulerWeb.Controllers
             var schools = schoolList.Select(school => new
             {
                 ID = school.ID,
-                SchoolName = school.SchoolName
+                SchoolName = school.SchoolName,
+                PrimaryColor = school.PrimaryColor,
+                SecondaryColor = school.SecondayColor
             });
 
             JavaScriptSerializer serializer = new JavaScriptSerializer();
             var output = serializer.Serialize(schools);
             var test = JsonConvert.DeserializeObject<dynamic>(output);
-            return Json(new { Schools = test });
+            return Json(test);
         }
 
         [HttpGet]
@@ -64,7 +66,7 @@ namespace SchedulerWeb.Controllers
             JavaScriptSerializer serializer = new JavaScriptSerializer();
             var output = serializer.Serialize(courses);
             var test = JsonConvert.DeserializeObject<dynamic>(output);
-            return Json(new { LACourses = test });
+            return Json(test);
         }
 
         [HttpGet]
@@ -96,7 +98,7 @@ namespace SchedulerWeb.Controllers
             JavaScriptSerializer serializer = new JavaScriptSerializer();
             var output = serializer.Serialize(courses);
             var test = JsonConvert.DeserializeObject<dynamic>(output);
-            return Json(new { MMCourses = test });
+            return Json(test);
         }
 
         // GET: API
@@ -154,7 +156,7 @@ namespace SchedulerWeb.Controllers
             JavaScriptSerializer serializer = new JavaScriptSerializer();
             var output = serializer.Serialize(schedule);
             var test = JsonConvert.DeserializeObject<dynamic>(output);
-            return Json(new { finalSchedule = test });
+            return Json(test);
         }
     }
 }
