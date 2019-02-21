@@ -41,6 +41,27 @@ namespace SchedulerWeb.Controllers
         }
 
         [HttpGet]
+        [ActionName("GetMajorMinors")]
+        public IHttpActionResult GetMajorMinors()
+        {
+            // generic School id
+            int schoolID = 1;
+            var MMList = scheduleService.getMajors(schoolID).Where(m => m.ID != 4).ToList();
+
+            var MajorMinor = MMList.Select(MM => new
+            {
+                ID = MM.ID,
+                MMName = MM.Name,
+                IsMajor = MM.IsMajor
+            });
+
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            var output = serializer.Serialize(MajorMinor);
+            var test = JsonConvert.DeserializeObject<dynamic>(output);
+            return Json(test);
+        }
+
+        [HttpGet]
         [ActionName("GetLibArtCourses")]
         public IHttpActionResult GetLibArtCourses()
         {
