@@ -16,7 +16,7 @@ struct School: Decodable {
     let SecondaryColor: String?
 }
 
-struct Courses: Decodable {
+struct Course: Decodable {
     let ID: Int?
     let MCode: String?
     let CCode: String?
@@ -29,74 +29,119 @@ struct Courses: Decodable {
     let LibArt: String?
 }
 
-struct Semesters: Decodable {
+struct MajorMinor: Decodable {
+    let ID: Int?
+    let Code: String?
+    let Title: String?
+}
+
+struct Semester: Decodable {
     let semester: String?
     let year: String?
     let credits: String?
-    let courses: [Courses]?
+    let courses: [Course]?
 }
 
-class DataController : UITableViewController {
+class DataController: NSObject {
     
-    func getSchools() {
-        let JsonUrlString = "http://shuscheduler.azurewebsites.net/api/SchedulerAPI/GetSchools"
-        guard let Url = URL(string: JsonUrlString) else { return }
+    let baseURL = "http://shuscheduler.azurewebsites.net/api/SchedulerAPI/"
+    let GetSchools = "GetSchools"
+    let GetLibArtCourses = "GetLibArtCourses"
+    let GetMMCourses = "GetMajorCourses"
+    let GetFinalSchedule = "GetFinalSchedule"
+    let GetMajors = "GetMajors"
+    let GetMinors = "GetMinors"
+    
+    func getSchools() -> [School] {
+        var schools: [School] = []
+        let JsonUrlString = baseURL + "GetSchools"
+        guard let Url = URL(string: JsonUrlString) else { return schools }
         
-        URLSession.shared.dataTask(with: Url) { (data, response, err) in
-            guard let data = data else { return }
-            do {
-                let school = try JSONDecoder().decode([School].self, from: data)
-                print(school)
-            } catch let jsonErr {
-                print("Error Serializing Json:", jsonErr)
-            }
-            }.resume()
+        let (data, _, _) = URLSession.shared.synchronousDataTask(with: Url)
+        do {
+            schools = try JSONDecoder().decode([School].self, from: (data ?? nil)!)
+        } catch let jsonErr {
+            print("Error Serializing Json:", jsonErr)
+        }
+        
+        return schools
     }
     
-    func getLibArtCourses() {
-        let JsonUrlString = "http://shuscheduler.azurewebsites.net/api/SchedulerAPI/GetLibArtCourses"
-        guard let Url = URL(string: JsonUrlString) else { return }
+    func getCourses(CourseType: Bool) -> [Course] {
+        var courses: [Course] = []
+        var course = GetMMCourses
+        if (!CourseType) {
+            course = GetLibArtCourses
+        }
+        let JsonUrlString = baseURL + course
+        guard let Url = URL(string: JsonUrlString) else { return courses }
         
-        URLSession.shared.dataTask(with: Url) { (data, response, err) in
-            guard let data = data else { return }
-            do {
-                let school = try JSONDecoder().decode([Courses].self, from: data)
-                print(school)
-            } catch let jsonErr {
-                print("Error Serializing Json:", jsonErr)
-            }
-            }.resume()
+        let (data, _, _) = URLSession.shared.synchronousDataTask(with: Url)
+        do {
+            courses = try JSONDecoder().decode([Course].self, from: (data ?? nil)!)
+        } catch let jsonErr {
+            print("Error Serializing Json:", jsonErr)
+        }
+        
+        return courses
     }
     
-    func getMMCourses() {
-        let JsonUrlString = "http://shuscheduler.azurewebsites.net/api/SchedulerAPI/GetMajorCourses"
-        guard let Url = URL(string: JsonUrlString) else { return }
+    func getMM(MajorType: Bool) -> [MajorMinor] {
+        var courses: [MajorMinor] = []
+        var MM = GetMajors
+        if (!MajorType) {
+            MM = GetMinors
+        }
+        let JsonUrlString = baseURL + MM
+        guard let Url = URL(string: JsonUrlString) else { return courses }
         
-        URLSession.shared.dataTask(with: Url) { (data, response, err) in
-            guard let data = data else { return }
-            do {
-                let school = try JSONDecoder().decode([Courses].self, from: data)
-                print(school)
-            } catch let jsonErr {
-                print("Error Serializing Json:", jsonErr)
-            }
-            }.resume()
+        let (data, _, _) = URLSession.shared.synchronousDataTask(with: Url)
+        do {
+            courses = try JSONDecoder().decode([MajorMinor].self, from: (data ?? nil)!)
+        } catch let jsonErr {
+            print("Error Serializing Json:", jsonErr)
+        }
+        
+        return courses
     }
     
-    func getFinalSchedule() {
-        let JsonUrlString = "http://shuscheduler.azurewebsites.net/api/SchedulerAPI/GetFinalSchedule"
-        guard let Url = URL(string: JsonUrlString) else { return }
+    func getFinalSchedule() -> [Semester] {
+        var semesters: [Semester] = []
+        let JsonUrlString = baseURL + GetFinalSchedule
+        guard let Url = URL(string: JsonUrlString) else { return semesters}
         
-        URLSession.shared.dataTask(with: Url) { (data, response, err) in
-            guard let data = data else { return }
-            do {
-                let school = try JSONDecoder().decode([Semesters].self, from: data)
-                print(school)
-            } catch let jsonErr {
-                print("Error Serializing Json:", jsonErr)
-            }
-            }.resume()
+        let (data, _, _) = URLSession.shared.synchronousDataTask(with: Url)
+        do {
+            semesters = try JSONDecoder().decode([Semester].self, from: (data ?? nil)!)
+        } catch let jsonErr {
+            print("Error Serializing Json:", jsonErr)
+        }
+        
+        return semesters
     }
     
     
+}
+
+extension URLSession {
+    func synchronousDataTask(with url: URL) -> (Data?, URLResponse?, Error?) {
+        var data: Data?
+        var response: URLResponse?
+        var error: Error?
+        
+        let semaphore = DispatchSemaphore(value: 0)
+        
+        let dataTask = self.dataTask(with: url) {
+            data = $0
+            response = $1
+            error = $2
+            
+            semaphore.signal()
+        }
+        dataTask.resume()
+        
+        _ = semaphore.wait(timeout: .distantFuture)
+        
+        return (data, response, error)
+    }
 }
