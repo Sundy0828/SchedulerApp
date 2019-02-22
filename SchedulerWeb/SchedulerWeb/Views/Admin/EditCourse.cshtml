@@ -96,17 +96,17 @@
                     <br />
                     <div class="row">
                         <div class="col-sm-6">
-                            <h2>Set Prerequisite Options</h2>
+                            <h4>Set Prerequisite Options</h4>
                         </div>
                         <div class="col-sm-6">
-                            <button id="modalshow" type="button" class="btn btn-primary" style="float:right;">
+                            <button id="modalshow" type="button" class="btn btn-info" style="float:right;">
                                 <i class="fas fa-save"></i> Add Prerequisite Option
                             </button>
                         </div>
                     </div>
                     <div class="table-responsive">
                         <table id="PrerequisiteOptions" class="table table-striped table-hover">
-                            <thead>
+                            <thead class="bg-dark text-light">
                                 <tr>
                                     <th>Code</th>
                                     <th>Title</th>
@@ -152,7 +152,7 @@
                         set[0],
                         set[1],
                         optionCount,
-                        '<i id="icon-delete" class="fa fa-trash-o fa-2x icon-delete" aria-hidden="true"></i>'
+                        '<i id="icon-delete" class="fas fa-trash-alt icon-delete text-danger" aria-hidden="true"></i>'
                     ]).draw(false);
                 }
                 optionCount++;
@@ -171,6 +171,12 @@
             });
 
             $(document).ready(function () {
+                $('#PrerequisiteOptions').DataTable({
+                    "order": [],
+                    "columnDefs": [
+                        { "orderable": false, "targets": 3 }
+                    ]
+                });
                 $('#modalshow').click(function () {
                     var url = $('#myModal').data('url');
                     $.get(url, function (data) {
@@ -178,6 +184,19 @@
                         $('#myModal').modal('show');
                     })
                 })
+
+                var table = $('#PrerequisiteOptions').DataTable();
+                var prereq = "@ViewBag.coursePrerequisites";
+                for (var i = 0; i < prereq.length; i++) {
+                    // Automatically add a first row of data
+                    table.row.add([
+                        set[0],
+                        set[1],
+                        optionCount,
+                        '<i id="icon-delete" class="fas fa-trash-alt icon-delete text-danger" aria-hidden="true"></i>'
+                    ]).draw(false);
+                    counter++;
+                }
             });
 
             function save() {

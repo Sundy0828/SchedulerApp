@@ -91,9 +91,10 @@
 
             for (var i = 0; i < data.length; i++) {
                 var columnID = parseInt(checkColumns[i].id.substring(12));
-                var value = checkColumns[i].checked;
-                if (value) {
+                var value = checkColumns[i];
+                if (value.checked) {
                     prerequisites.push(data[columnID][1] + "//" + data[columnID][2]);
+                    value.checked = false;
                 }
             }
 
