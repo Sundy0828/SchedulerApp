@@ -62,7 +62,7 @@
                     <!-- Modal footer -->
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Add Prerequisite Option</button>
+                        <button type="button" class="btn btn-danger" onclick="add()">Add Prerequisite Option</button>
                     </div>
 
                 </div>
@@ -78,6 +78,27 @@
                 ]
             });
         });
+        function add() {
+            var table = $('#dataTable').DataTable();
+            var data = table
+                .rows()
+                .data();
+            var rows = table.cells().nodes();
+            var checkColumns = $(rows).find('input[type="checkbox"]');
+
+            var values = [];
+            var prerequisites = [];
+
+            for (var i = 0; i < data.length; i++) {
+                var columnID = parseInt(checkColumns[i].id.substring(12));
+                var value = checkColumns[i].checked;
+                if (value) {
+                    prerequisites.push(data[columnID][1] + "//" + data[columnID][2]);
+                }
+            }
+
+            setPrereqOptions(prerequisites);
+        }
     </script>
 
 
