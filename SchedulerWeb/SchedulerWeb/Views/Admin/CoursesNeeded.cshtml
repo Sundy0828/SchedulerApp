@@ -36,16 +36,11 @@
                                     @{ var count = 0;}
                                     @foreach (var course in ViewBag.courses)
                                     {
-                                        var majorCourse = false;
                                         var courseCode = course.MCode + " " + course.CCode;
-                                        if (ViewBag.coursePrerequisites.Contains(courseCode))
-                                        {
-                                            majorCourse = true;
-                                        }
                                         <tr>
                                             <td>
                                                 <div class="custom-control custom-checkbox">
-                                                    <input type="checkbox" class="custom-control-input" id="customCheck-@count" name="isMajor" checked="@majorCourse">
+                                                    <input type="checkbox" class="custom-control-input" id="customCheck-@count" name="isMajor" />
                                                     <label class="custom-control-label" for="customCheck-@count"></label>
                                                 </div>
                                             </td>

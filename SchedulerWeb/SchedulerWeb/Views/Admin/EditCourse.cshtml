@@ -114,6 +114,21 @@
                                     <th>Action</th>
                                 </tr>
                             </thead>
+                            @{ var count = 1;}
+                            @foreach (var courses in ViewBag.coursePrerequisites)
+                            {
+                                foreach (var course in courses)
+                                {
+                                    <tr>
+                                        <td>@course.MCode @course.CCode</td>
+                                        <td>@course.Title</td>
+                                        <td>@count</td>
+                                        <td><i id="icon-delete" class="fas fa-trash-alt icon-delete text-danger" aria-hidden="true"></i></td>
+                                    </tr>
+                                }
+
+                                count++;
+                            }
                         </table>
                     </div>
                 </div>
@@ -142,9 +157,9 @@
 
     @section Scripts {
         <script>
-            var optionCount = 1
+            var optionCount = @ViewBag.optionCount;
+            var table;
             function setPrereqOptions(prerequisites) {
-                var table = $('#PrerequisiteOptions').DataTable();
 
                 for (var i = 0; i < prerequisites.length; i++) {
                     var set = prerequisites[i].split('//');
@@ -185,7 +200,7 @@
                     })
                 })
 
-                var table = $('#PrerequisiteOptions').DataTable();
+                table = $('#PrerequisiteOptions').DataTable();
                 var prereq = "@ViewBag.coursePrerequisites";
                 for (var i = 0; i < prereq.length; i++) {
                     // Automatically add a first row of data
@@ -200,7 +215,6 @@
             });
 
             function save() {
-                var table = $('#dataTable').DataTable();
                 var data = table
                     .rows()
                     .data();
@@ -208,16 +222,18 @@
                 var rows = table.cells().nodes();
                 var checkColumns = $(rows).find('input[type="checkbox"]');
 
-                var values = [];
                 var prerequisites = [];
-
+                var values = [];
+                var previousCount = 0;
                 for (var i = 0; i < data.length; i++) {
-                    var columnID = parseInt(checkColumns[i].id.substring(12));
-                    var value = checkColumns[i].checked;
-                    if (value) {
-                        prerequisites.push(data[columnID][1]);
+                    if (data[i][2] != previousCount && previousCount != 0) {
+                        prerequisites.push(values.join());
+                        values = [];
                     }
+                    values.push(data[i][0]);
+                    previousCount = data[i][2];
                 }
+                prerequisites.push(values.join());
 
                 var major = $('#major').val();
                 var course = $('#course').val();
@@ -240,7 +256,7 @@
                         "year": year,
                         "libArt": libArt,
                         "credits": credits,
-                        "prerequisites": prerequisites.join()
+                        "prerequisites": prerequisites
                     },
                     method: "POST",
                     async: false,

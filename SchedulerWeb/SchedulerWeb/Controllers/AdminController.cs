@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using SchedulerWeb.DataLayer;
+using SchedulerWeb.Models;
 
 namespace SchedulerWeb.Controllers
 {
@@ -107,15 +108,26 @@ namespace SchedulerWeb.Controllers
             var year = adminService.getYears();
             var libArt = adminService.getLibArts();
             var course = adminService.getCourse(id);
-            var courses = adminService.getCoursesForPrerequisites(course.ID, schoolID);
-            var holder = course.Prerequisites == null ? "" : course.Prerequisites;
-            var coursePrerequisites = holder;
+            
+            var prerequisites = course.Prerequisites.Split(new[] { "//" }, StringSplitOptions.None);
+            List<List<Course>> coursePrerequisites = new List<List<Course>>();
+            foreach (var item in prerequisites)
+            {
+                var items = item.Split(',');
+                List<Course> courseList = new List<Course>();
+                foreach (var c in items)
+                {
+                    courseList.Add(adminService.getCourse(c, schoolID));
+                }
+                coursePrerequisites.Add(courseList);
+            }
+            
             ViewBag.semester = semester;
             ViewBag.year = year;
             ViewBag.libArt = libArt;
             ViewBag.course = course;
-            ViewBag.courses = courses;
             ViewBag.coursePrerequisites = coursePrerequisites;
+            ViewBag.optionCount = coursePrerequisites.Count() + 1;
             return View();
         }
 
@@ -142,11 +154,9 @@ namespace SchedulerWeb.Controllers
         }
 
         // GET: Admin
-        public ActionResult UpdateCourse(int id, String major, String course, String section, String title, int semester, int year, int libArt, int credits, String prerequisites)
+        public ActionResult UpdateCourse(int id, String major, String course, String section, String title, int semester, int year, int libArt, int credits, String[] prerequisites)
         {
-            var courseList = prerequisites.Split(',');
-            Array.Sort(courseList);
-            string coursesSort = string.Join(",", courseList);
+            string coursesSort = string.Join("//", prerequisites);
             adminService.UpdateCourse(id, major, course, section, title, semester, year, libArt, credits, coursesSort);
             return RedirectToAction("Courses", "Admin");
         }

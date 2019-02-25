@@ -20,7 +20,8 @@ namespace SchedulerWeb.DataLayer
                 Year_ID = year,
                 LibArt_ID = LibArt,
                 Credits = credits,
-                School_ID = school
+                School_ID = school,
+                Prerequisites = ""
             };
 
             this.DB.Courses.Add(newCourse);
