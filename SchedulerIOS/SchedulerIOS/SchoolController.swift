@@ -11,10 +11,14 @@ import UIKit
 
 class SchoolController: UITableViewController {
     
+    var data = DataController()
+    
+    var schools: [School] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        
+        schools = data.getSchools()
     }
     
     
