@@ -1,0 +1,44 @@
+﻿
+@{
+	ViewBag.Title = "My Schedule";
+}
+
+<h2>My Schedule</h2>
+
+<hr />
+
+<div class="table-responsive">
+	<table class="table table-striped table-hover">
+
+		@foreach (var semester in ViewBag.finalSchedule)
+		{
+			<thead class="bg-dark text-light">
+				<tr>
+					<th colspan="4">@semester.currSem @semester.currYear</th>
+					<th>@semester.currCredits</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var course in semester.courses)
+				{
+					<tr>
+						<td>@course.MCode @course.CCode @course.SCode</td>
+						<td>@course.Title</td>
+						<td>@course.Semester.Description</td>
+						<td>@course.Year.Description</td>
+						<td>@course.Credits</td>
+					</tr>
+				}
+			</tbody>
+		}
+	</table>
+</div>
+
+@section Scripts {
+	<script>
+		$(function () {
+			var element = document.getElementById("ActiveSchedule");
+			element.classList.add("active");
+		});
+	</script>
+}

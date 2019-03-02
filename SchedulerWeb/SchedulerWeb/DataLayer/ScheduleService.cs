@@ -68,9 +68,15 @@ namespace SchedulerWeb.DataLayer
                 {
                     // get list of prerequisites
                     List<Course> prerequisitesList = new List<Course>();
-                    var majorCourses = course.Prerequisites.Split(',');
+                    // get all options for prerequisites
+                    var prereqOptions = course.Prerequisites.Split(new[] { "//" }, StringSplitOptions.None);
+                    var majorPrerequisites = new List<String>();
+                    foreach (var prereqOption in prereqOptions)
+                    {
+                        majorPrerequisites.AddRange(prereqOption.Split(','));
+                    }
                     // loop through prerequisites and add them to list
-                    foreach (var courseCode in majorCourses)
+                    foreach (var courseCode in majorPrerequisites)
                     {
                         var courseItem = getCourse(courseCode, schoolID);
                         prerequisitesList.Add(courseItem);
@@ -97,40 +103,47 @@ namespace SchedulerWeb.DataLayer
             }
             else
             {
-                // loop through prerequisites
-                var majorCourses = course.Prerequisites.Split(',');
-                var prereqTaken = false;
-                foreach (var courseCode in majorCourses)
+                //loop through the different options for prerequisites
+                var prereqOptions = course.Prerequisites.Split(new[] { "//" }, StringSplitOptions.None);
+                foreach (var prereqOption in prereqOptions)
                 {
-                    // if course not taken loop through that course to check if prerequisites are met
-                    var courseItem = getCourse(courseCode, schoolID);
-                    // if junior status and prerequisites are currently being taken
-                    if (taken.Sum(t => t.Credits) >= 60)
+                    // loop through prerequisites
+                    var majorCourses = prereqOption.Split(',');
+                    var prereqTaken = false;
+                    foreach (var courseCode in majorCourses)
                     {
-                        if (curTaken.Contains(courseItem) || taken.Contains(courseItem))
+                        // if course not taken loop through that course to check if prerequisites are met
+                        var courseItem = getCourse(courseCode, schoolID);
+                        // if junior status and prerequisites are currently being taken
+                        if (taken.Sum(t => t.Credits) >= 60)
                         {
-                            prereqTaken = true;
-                        }
-                        else
-                        {
-                            prereqTaken = false;
-                            break;
+                            if (curTaken.Contains(courseItem) || taken.Contains(courseItem))
+                            {
+                                prereqTaken = true;
+                            }
+                            else
+                            {
+                                prereqTaken = false;
+                                break;
+                            }
                         }
                     }
-                }
-                if (prereqTaken)
-                {
-                    // return most base course based off taken and currently taken courses
+                    if (prereqTaken)
+                    {
+                        // return most base course based off taken and currently taken courses
+                        return courseHolder;
+                    }
+                    foreach (var courseCode in majorCourses)
+                    {
+                        // if course not taken loop through that course to check if prerequisites are met
+                        var courseItem = getCourse(courseCode, schoolID);
+                        if (!taken.Contains(courseItem))
+                        {
+                            courseHolder = getNextCourse(courseItem, taken, curTaken, schoolID);
+                        }
+                    }
+                    // return most base course based off taken courses
                     return courseHolder;
-                }
-                foreach (var courseCode in majorCourses)
-                {
-                    // if course not taken loop through that course to check if prerequisites are met
-                    var courseItem = getCourse(courseCode, schoolID);
-                    if (!taken.Contains(courseItem))
-                    {
-                        courseHolder = getNextCourse(courseItem, taken, curTaken, schoolID);
-                    }
                 }
                 // return most base course based off taken courses
                 return courseHolder;

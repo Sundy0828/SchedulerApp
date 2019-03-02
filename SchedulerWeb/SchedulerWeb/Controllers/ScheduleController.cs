@@ -21,6 +21,12 @@ namespace SchedulerWeb.Controllers
         // GET: Schedule
         public ActionResult Index()
         {
+            return View();
+        }
+
+        // GET: Schedule
+        public ActionResult FinalSchedule()
+        {
             // generic School id
             int schoolID = 1;
 

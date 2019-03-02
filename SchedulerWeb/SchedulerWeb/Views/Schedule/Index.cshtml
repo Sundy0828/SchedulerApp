@@ -1,43 +1,79 @@
 ﻿
 @{
-    ViewBag.Title = "My Schedule";
+    ViewBag.Title = "Final Schedule Settings";
 }
 
-<h2>My Schedule</h2>
+<h2>Select Settings for Final Schedule</h2>
 
 <hr />
 
-<div class="table-responsive">
-    <table class="table table-striped table-hover">
+<h4>Select School</h4>
+<div class="row">
+    <div class="col-sm-5">
 
-        @foreach (var semester in ViewBag.finalSchedule)
-        {
-            <thead class="bg-dark text-light">
-                <tr>
-                    <th colspan="4">@semester.currSem @semester.currYear</th>
-                    <th>@semester.currCredits</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var course in semester.courses)
-                {
-                    <tr>
-                        <td>@course.MCode @course.CCode @course.SCode</td>
-                        <td>@course.Title</td>
-                        <td>@course.Semester.Description</td>
-                        <td>@course.Year.Description</td>
-                        <td>@course.Credits</td>
-                    </tr>
-                }
-            </tbody>
-        }
-    </table>
+    </div>
+    <div class="col-sm-2">
+
+    </div>
+    <div class="col-sm-5">
+
+    </div>
 </div>
+
+<hr />
+
+<h4>Select Majors</h4>
+<div class="row">
+    <div class="col-sm-5">
+
+    </div>
+    <div class="col-sm-2">
+
+    </div>
+    <div class="col-sm-5">
+
+    </div>
+</div>
+
+<hr />
+
+<h4>Select Minors</h4>
+<div class="row">
+    <div class="col-sm-5">
+
+    </div>
+    <div class="col-sm-2">
+
+    </div>
+    <div class="col-sm-5">
+
+    </div>
+</div>
+
+<hr />
+
+<h4>Select Taken Major/Minor Courses</h4>
+<div class="row">
+    <div class="col-sm-12">
+
+    </div>
+</div>
+
+<hr />
+
+<h4>Select Taken Liberal Arts Courses</h4>
+<div class="row">
+    <div class="col-sm-12">
+
+    </div>
+</div>
+
+<a class="btn btn-primary" href="@Url.Action("FinalSchedule", "Schedule")">Next</a>
 
 @section Scripts {
     <script>
         $(function () {
-			var element = document.getElementById("ActiveSchedule");
+            var element = document.getElementById("ActiveSchedule");
             element.classList.add("active");
         });
     </script>
