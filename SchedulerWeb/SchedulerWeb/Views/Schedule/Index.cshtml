@@ -7,68 +7,80 @@
 
 <hr />
 
-<h4>Select School</h4>
 <div class="row">
     <div class="col-sm-5">
-
+        <h4>Semester Start</h4>
+        <select id="selectSem" class="selectpicker" data-live-search="true">
+            <option value="Fall">Fall</option>
+            <option value="Spring">Spring</option>
+        </select>
     </div>
-    <div class="col-sm-2">
-
-    </div>
+    <div class="col-sm-2"></div>
     <div class="col-sm-5">
-
+        <h4>Year Start</h4>
+        <input class="form-control" type="number" />
     </div>
 </div>
 
 <hr />
 
-<h4>Select Majors</h4>
 <div class="row">
     <div class="col-sm-5">
-
+        <h4>Max Credits Per Semester</h4>
+        <input class="form-control" type="number" min="0" />
     </div>
-    <div class="col-sm-2">
-
-    </div>
+    <div class="col-sm-2"></div>
     <div class="col-sm-5">
-
+        <h4>Max Semesters</h4>
+        <input class="form-control" type="number" min="0" />
     </div>
 </div>
 
 <hr />
 
-<h4>Select Minors</h4>
 <div class="row">
     <div class="col-sm-5">
-
-    </div>
-    <div class="col-sm-2">
-
-    </div>
-    <div class="col-sm-5">
-
+        <h4>Select School</h4>
+        <select id="selectSchool" class="selectpicker" data-live-search="true">
+            @foreach (var school in ViewBag.Schools)
+            {
+                <option value="@school.ID">@school.SchoolName</option>
+            }
+        </select>
     </div>
 </div>
 
 <hr />
 
-<h4>Select Taken Major/Minor Courses</h4>
 <div class="row">
-    <div class="col-sm-12">
-
+    <div class="col-sm-5">
+        <h4>Select Majors</h4>
+        <select id="selectMajors" class="selectpicker" multiple data-live-search="true"></select>
+    </div>
+    <div class="col-sm-2"></div>
+    <div class="col-sm-5">
+        <h4>Select Minors</h4>
+        <select id="selectMinors" class="selectpicker" multiple data-live-search="true"></select>
     </div>
 </div>
 
 <hr />
 
-<h4>Select Taken Liberal Arts Courses</h4>
 <div class="row">
-    <div class="col-sm-12">
-
+    <div class="col-sm-5">
+        <h4>Select Taken Major/Minor Courses</h4>
+        <select id="selectMMCourses" class="selectpicker" multiple data-live-search="true"></select>
+    </div>
+    <div class="col-sm-2"></div>
+    <div class="col-sm-5">
+        <h4>Select Taken Liberal Arts Courses</h4>
+        <select id="selectLibArtCourses" class="selectpicker" multiple data-live-search="true"></select>
     </div>
 </div>
 
-<a class="btn btn-primary" href="@Url.Action("FinalSchedule", "Schedule")">Next</a>
+<br />
+
+<button class="btn btn-primary" onclick="getFinalSchedule()">Next</button>
 
 @section Scripts {
     <script>
@@ -76,5 +88,171 @@
             var element = document.getElementById("ActiveSchedule");
             element.classList.add("active");
         });
+
+        $(document).ready(function () {
+            $('#selectMajors').empty()
+            var dropDown = document.getElementById("selectSchool");
+            var schoolID = parseInt(dropDown.options[dropDown.selectedIndex].value);
+            $.ajax({
+                type: "GET",
+                url: "/api/SchedulerAPI/GetMajors",
+                data: { 'schoolID': schoolID },
+                success: function (data) {
+                    $('#selectMajors').empty()
+                    // Use jQuery's each to iterate over the opts value
+                    for (var i = 0; i < data.length; i++) {
+                        $('#selectMajors').append('<option value="' + data[i].ID + '">' + data[i].MMName + '</option>');
+                    }
+                    $('#selectMajors').selectpicker('refresh');
+                }
+            });
+
+            $('#selectMinors').empty()
+            $.ajax({
+                type: "GET",
+                url: "/api/SchedulerAPI/GetMinors",
+                data: { 'schoolID': schoolID },
+                success: function (data) {
+                    $('#selectMinors').empty()
+                    // Use jQuery's each to iterate over the opts value
+                    for (var i = 0; i < data.length; i++) {
+                        $('#selectMinors').append('<option value="' + data[i].ID + '">' + data[i].MMName + '</option>');
+                    }
+                    $('#selectMinors').selectpicker('refresh');
+                }
+            });
+
+            $('#selectLibArtCourses').empty()
+            $.ajax({
+                type: "GET",
+                url: "/api/SchedulerAPI/GetLibArtCourses",
+                data: {
+                    'schoolID': schoolID
+                },
+                success: function (data) {
+                    $('#selectLibArtCourses').empty()
+                    // Use jQuery's each to iterate over the opts value
+                    for (var i = 0; i < data.length; i++) {
+                        $('#selectLibArtCourses').append('<option value="' + data[i].ID + '">' + data[i].Title + '</option>');
+                    }
+                    $('#selectLibArtCourses').selectpicker('refresh');
+                }
+            });
+        });
+
+        $(function () {
+            $("#selectSchool").on('change', function () {
+                $('#selectMajors').empty()
+                var dropDown = document.getElementById("selectSchool");
+                var schoolID = parseInt(dropDown.options[dropDown.selectedIndex].value);
+                $.ajax({
+                    type: "GET",
+                    url: "/api/SchedulerAPI/GetMajors",
+                    data: { 'schoolID': schoolID },
+                    success: function (data) {
+                        $('#selectMajors').empty()
+                        // Use jQuery's each to iterate over the opts value
+                        for (var i = 0; i < data.length; i++) {
+                            $('#selectMajors').append('<option value="' + data[i].ID + '">' + data[i].MMName + '</option>');
+                        }
+                        $('#selectMajors').selectpicker('refresh');
+                    }
+                });
+
+                $('#selectMinors').empty()
+                $.ajax({
+                    type: "GET",
+                    url: "/api/SchedulerAPI/GetMinors",
+                    data: { 'schoolID': schoolID },
+                    success: function (data) {
+                        $('#selectMinors').empty()
+                        // Use jQuery's each to iterate over the opts value
+                        for (var i = 0; i < data.length; i++) {
+                            $('#selectMinors').append('<option value="' + data[i].ID + '">' + data[i].MMName + '</option>');
+                        }
+                        $('#selectMinors').selectpicker('refresh');
+                    }
+                });
+            })
+
+        });
+
+        $(function () {
+            $("#selectMajors").on('change', function () {
+                $('#selectMMCourses').empty()
+                var dropDown = document.getElementById("selectSchool");
+                var schoolID = parseInt(dropDown.options[dropDown.selectedIndex].value);
+
+                // list of majors/minors wanted
+                var majorOptions = $('#selectMajors option');
+                var majors = $.map(majorOptions, function (option) {
+                    if (option.selected) {
+                        return option.value;
+                    }
+                });
+                var minorOptions = $('#selectMinors option');
+                var minors = $.map(minorOptions, function (option) {
+                    if (option.selected) {
+                        return option.value;
+                    }
+                });
+                var MMList = majors.concat(minors);
+
+                $.ajax({
+                    type: "GET",
+                    url: "/api/SchedulerAPI/GetMajorCourses",
+                    data: {
+                        'schoolID': schoolID,
+                        'majors': MMList.join()
+                    },
+                    success: function (data) {
+                        $('#selectMMCourses').empty()
+                        // Use jQuery's each to iterate over the opts value
+                        for (var i = 0; i < data.length; i++) {
+                            $('#selectMMCourses').append('<option value="' + data[i].ID + '">' + data[i].Title + '</option>');
+                        }
+                        $('#selectMMCourses').selectpicker('refresh');
+                    }
+                });
+            })
+
+        });
+
+        function getFinalSchedule() {
+            var dropDown = document.getElementById("selectSchool");
+            var schoolID = parseInt(dropDown.options[dropDown.selectedIndex].value);
+
+            // list of majors/minors wanted
+            var majorOptions = $('#selectMajors option');
+            var majors = $.map(majorOptions, function (option) {
+                if (option.selected) {
+                    return option.value;
+                }
+            });
+            var minorOptions = $('#selectMinors option');
+            var minors = $.map(minorOptions, function (option) {
+                if (option.selected) {
+                    return option.value;
+                }
+            });
+            var MMList = majors.concat(minors);
+
+            var mmCourseOptions = $('#selectMMCourses option');
+            var mmCourses = $.map(mmCourseOptions, function (option) {
+                if (option.selected) {
+                    return option.value;
+                }
+            });
+
+            var libArtCourseOptions = $('#selectLibArtCourses option');
+            var libArtCourses = $.map(libArtCourseOptions, function (option) {
+                if (option.selected) {
+                    return option.value;
+                }
+            });
+
+            var url = "/Schedule/FinalSchedule?schoolID=" + schoolID + "&majors=" + MMList.join() + "&mmCoursesTaken=" + mmCourses.join() + "&libArtCoursesTaken=" + libArtCourses.join();
+            window.location.href = url;
+        }
     </script>
 }

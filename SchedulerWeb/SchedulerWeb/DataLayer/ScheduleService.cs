@@ -31,6 +31,27 @@ namespace SchedulerWeb.DataLayer
             }
             return courseList.OrderBy(c => c.CCode).ToList();
         }
+        public List<Course> getLibArtCourses(int schoolID, List<int> coursesTaken)
+        {
+            // loop through lib art major courses
+            var major = getMajor(4);
+            var courseList = new List<Course>();
+            var majorCourses = major.Courses.Split(',');
+            foreach (var courseCode in majorCourses)
+            {
+                // add lib art courses if not in list
+                var courseItem = getCourse(courseCode, schoolID);
+                if (!coursesTaken.Contains(courseItem.ID))
+                {
+                    if (!courseList.Contains(courseItem))
+                    {
+                        courseList.Add(courseItem);
+                    }
+                }
+            }
+            return courseList.OrderBy(c => c.CCode).ToList();
+        }
+
         public List<Course> getMajorCourses(List<int> staticMajors, int schoolID)
         {
             // loop through majors
@@ -47,6 +68,31 @@ namespace SchedulerWeb.DataLayer
                     if (!courseList.Contains(courseItem))
                     {
                         courseList.Add(courseItem);
+                    }
+
+                }
+            }
+            return courseList.OrderBy(c => c.CCode).ToList();
+        }
+        public List<Course> getMajorCourses(List<int> staticMajors, int schoolID, List<int> coursesTaken)
+        {
+            // loop through majors
+            var courseList = new List<Course>();
+            foreach (var major_ID in staticMajors)
+            {
+                // get major courses based off of id
+                var major = getMajor(major_ID);
+                var majorCourses = major.Courses.Split(',');
+                foreach (var courseCode in majorCourses)
+                {
+                    // add major if not in list
+                    var courseItem = getCourse(courseCode, schoolID);
+                    if (!coursesTaken.Contains(courseItem.ID))
+                    {
+                        if (!courseList.Contains(courseItem))
+                        {
+                            courseList.Add(courseItem);
+                        }
                     }
 
                 }
@@ -151,12 +197,11 @@ namespace SchedulerWeb.DataLayer
             }
         }
 
-        public List<FinalSchedule> getFinalSchedule(List<Course> libArt2, List<Course> courseList2, String startSem, int startYear, int maxCredits, int maxSem, int schoolID)
+        public List<FinalSchedule> getFinalSchedule(List<Course> libArt2, List<Course> courseList, String startSem, int startYear, int maxCredits, int maxSem, int schoolID, List<int> takenCourses)
         {
             // generic values to keep track of data
             var currentCredits = 0;
             var libArt = libArt2;
-            var courseList = courseList2;
             List<Course> curTaken = new List<Course>();
             
             // important values for semester
@@ -177,6 +222,31 @@ namespace SchedulerWeb.DataLayer
             // set priority to each course and order by priority
             priorityListLoop(courseList, schoolID);
             priorityList = priorityList.OrderByDescending(x => x.Value).ToDictionary(x => x.Key, x => x.Value);
+
+            
+            // add previously taken courses
+            foreach (var ID in takenCourses)
+            {
+                
+                var course = getCourse(ID);
+                courseList.Remove(course);
+                curTaken.Add(course);
+            }
+            // add current semester and courses to final schedule
+            var semester = new FinalSchedule()
+            {
+                currSem = "Precollege",
+                currYear = "Courses",
+                currCredits = taken.Sum(t => t.Credits).ToString(),
+                courses = curTaken
+            };
+            finalSchedule.Add(semester);
+            // join curent taken, and overall taken
+            taken.AddRange(curTaken);
+            // reset generic values
+            curTaken = new List<Course>();
+
+
 
             // loop through until all courses are completed
             for (int j = 0; j < maxSem; j++)
@@ -274,7 +344,7 @@ namespace SchedulerWeb.DataLayer
                 }
 
                 // add current semester and courses to final schedule
-                var semester = new FinalSchedule(){
+                semester = new FinalSchedule(){
                     currSem = currentSem,
                     currYear = currentYear.ToString(),
                     currCredits = currentCredits + " / " + (taken.Sum(t => t.Credits) + currentCredits),

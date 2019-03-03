@@ -42,10 +42,10 @@ namespace SchedulerWeb.Controllers
 
         [HttpGet]
         [ActionName("GetMajors")]
-        public IHttpActionResult GetMajors()
+        public IHttpActionResult GetMajors(int schoolID)
         {
             // generic School id
-            int schoolID = 1;
+            //int schoolID = 1;
             var MMList = scheduleService.getMajors(schoolID).Where(m => m.ID != 4 && m.IsMajor == true).ToList();
 
             var MajorMinor = MMList.Select(MM => new
@@ -62,10 +62,10 @@ namespace SchedulerWeb.Controllers
 
         [HttpGet]
         [ActionName("GetMinors")]
-        public IHttpActionResult GetMinors()
+        public IHttpActionResult GetMinors(int schoolID)
         {
             // generic School id
-            int schoolID = 1;
+            //int schoolID = 1;
             var MMList = scheduleService.getMajors(schoolID).Where(m => m.ID != 4 && m.IsMajor == false).ToList();
 
             var MajorMinor = MMList.Select(MM => new
@@ -82,10 +82,10 @@ namespace SchedulerWeb.Controllers
 
         [HttpGet]
         [ActionName("GetLibArtCourses")]
-        public IHttpActionResult GetLibArtCourses()
+        public IHttpActionResult GetLibArtCourses(int schoolID)
         {
             // generic School id
-            int schoolID = 1;
+            //int schoolID = 1;
 
             // lib art courses
             var libArts = scheduleService.getLibArtCourses(schoolID);
@@ -111,14 +111,15 @@ namespace SchedulerWeb.Controllers
 
         [HttpGet]
         [ActionName("GetMajorCourses")]
-        public IHttpActionResult GetMajorCourses()
+        public IHttpActionResult GetMajorCourses(int schoolID, string majors)
         {
             // generic School id
-            int schoolID = 1;
+            //int schoolID = 1;
 
             // fake majors 1 ~ Comp Sci, 3 ~ CyberSecurity
-            var staticMajors = new List<int>() { 1, 3 };
-            
+            //var staticMajors = new List<int>() { 1, 3 };
+            var staticMajors = majors.Split(',').Select(Int32.Parse).ToList();
+
             // courses for major
             var courseList = scheduleService.getMajorCourses(staticMajors, schoolID);
 
@@ -144,13 +145,27 @@ namespace SchedulerWeb.Controllers
         // GET: API
         [HttpGet]
         [ActionName("GetFinalSchedule")]
-        public IHttpActionResult GetFinalSchedule()
+        public IHttpActionResult GetFinalSchedule(int schoolID, string majors, string mmCoursesTaken, string libArtCoursesTaken)
         {
             // generic School id
-            int schoolID = 1;
+            //int schoolID = 1;
 
             // fake majors 1 ~ Comp Sci, 3 ~ CyberSecurity
-            var staticMajors = new List<int>() { 1, 3 };
+            //var staticMajors = new List<int>() { 1, 3 };
+            var staticMajors = majors.Split(',').Select(Int32.Parse).ToList();
+
+            // ID's of major/lib art courses taken
+            var mmTaken = new List<int>();
+            if (mmCoursesTaken != "")
+            {
+                mmTaken = mmCoursesTaken.Split(',').Select(Int32.Parse).ToList();
+            }
+            var libArtTaken = new List<int>();
+            if (mmCoursesTaken != "")
+            {
+                libArtTaken = libArtCoursesTaken.Split(',').Select(Int32.Parse).ToList();
+            }
+            var takenCourses = mmTaken.Concat(libArtTaken).ToList();
 
             // lib art courses
             var libArts = scheduleService.getLibArtCourses(schoolID);
@@ -166,10 +181,10 @@ namespace SchedulerWeb.Controllers
                 }
             }
             // remove internship for SCY since diaz counts both as one
-            courseList.Remove(courseList.Where(c => c.MCode == "SCY" && c.CCode == "430").FirstOrDefault());
+            //courseList.Remove(courseList.Where(c => c.MCode == "SCY" && c.CCode == "430").FirstOrDefault());
 
             // get final schedule
-            var finalSchedule = scheduleService.getFinalSchedule(libArts, courseList, "Fall", 2019, 17, 8, schoolID);
+            var finalSchedule = scheduleService.getFinalSchedule(libArts, courseList, "Fall", 2019, 17, 8, schoolID, takenCourses);
 
             var schedule = new
             {

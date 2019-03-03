@@ -21,17 +21,33 @@ namespace SchedulerWeb.Controllers
         // GET: Schedule
         public ActionResult Index()
         {
+            var schools = scheduleService.getSchools();
+            ViewBag.Schools = schools;
             return View();
         }
 
         // GET: Schedule
-        public ActionResult FinalSchedule()
+        public ActionResult FinalSchedule(int schoolID, string majors, string mmCoursesTaken, string libArtCoursesTaken)
         {
             // generic School id
-            int schoolID = 1;
+            //int schoolID = 1;
 
             // fake majors 1 ~ Comp Sci, 3 ~ CyberSecurity
-            var staticMajors = new List<int>() { 1, 3 };
+            //var staticMajors = new List<int>() { 1, 3 };
+            var staticMajors = majors.Split(',').Select(Int32.Parse).ToList();
+
+            // ID's of major/lib art courses taken
+            var mmTaken = new List<int>();
+            if (mmCoursesTaken != "")
+            {
+                mmTaken = mmCoursesTaken.Split(',').Select(Int32.Parse).ToList();
+            }
+            var libArtTaken = new List<int>();
+            if (mmCoursesTaken != "")
+            {
+                libArtTaken = libArtCoursesTaken.Split(',').Select(Int32.Parse).ToList();
+            }
+            var takenCourses = mmTaken.Concat(libArtTaken).ToList();
 
             // lib art courses
             var libArts = scheduleService.getLibArtCourses(schoolID);
@@ -47,10 +63,10 @@ namespace SchedulerWeb.Controllers
                 }
             }
             // remove internship for SCY since diaz counts both as one
-            courseList.Remove(courseList.Where(c => c.MCode == "SCY" && c.CCode == "430").FirstOrDefault());
+            //courseList.Remove(courseList.Where(c => c.MCode == "SCY" && c.CCode == "430").FirstOrDefault());
 
             // get final schedule
-            var finalSchedule = scheduleService.getFinalSchedule(libArts, courseList, "Fall", 2019, 17, 8, schoolID);
+            var finalSchedule = scheduleService.getFinalSchedule(libArts, courseList, "Fall", 2019, 17, 8, schoolID, takenCourses);
             ViewBag.finalSchedule = finalSchedule;
 
             return View();
