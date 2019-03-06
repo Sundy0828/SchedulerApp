@@ -1,0 +1,10 @@
+C:\Users\jsunderland\Desktop\Scheduler App\SchedulerWeb\ShuScheduler.DB\bin\Debug\ShuScheduler.DB.dacpac
+C:\Users\jsunderland\Desktop\Scheduler App\SchedulerWeb\ShuScheduler.DB\obj\Debug\ShuScheduler.DB.sqlprojAssemblyReference.cache
+C:\Users\jsunderland\Desktop\Scheduler App\SchedulerWeb\ShuScheduler.DB\obj\Debug\ShuScheduler.DB.dll
+C:\Users\jsunderland\Desktop\Scheduler App\SchedulerWeb\ShuScheduler.DB\obj\Debug\ShuScheduler.DB.pdb
+C:\Users\jsunderland\Desktop\Scheduler App\SchedulerWeb\ShuScheduler.DB\bin\Debug\ShuScheduler.DB.dll
+C:\Users\jsunderland\Desktop\Scheduler App\SchedulerWeb\ShuScheduler.DB\bin\Debug\ShuScheduler.DB.pdb
+C:\Users\jsunderland\Desktop\Scheduler App\SchedulerWeb\ShuScheduler.DB\obj\Debug\Model.xml
+C:\Users\jsunderland\Desktop\Scheduler App\SchedulerWeb\ShuScheduler.DB\obj\Debug\refactor.xml
+C:\Users\jsunderland\Desktop\Scheduler App\SchedulerWeb\ShuScheduler.DB\obj\Debug\postdeploy.sql
+C:\Users\jsunderland\Desktop\Scheduler App\SchedulerWeb\ShuScheduler.DB\obj\Debug\predeploy.sql

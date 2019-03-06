@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.28010.2016
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchedulerWeb", "SchedulerWeb\SchedulerWeb.csproj", "{95BD2006-605D-4EA3-B1DB-D96886317CE9}"
 EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "ShuScheduler.DB", "ShuScheduler.DB\ShuScheduler.DB.sqlproj", "{513C0AEB-21A2-4771-851F-F6592835449D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,12 @@ Global
 		{95BD2006-605D-4EA3-B1DB-D96886317CE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{95BD2006-605D-4EA3-B1DB-D96886317CE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{95BD2006-605D-4EA3-B1DB-D96886317CE9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{513C0AEB-21A2-4771-851F-F6592835449D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{513C0AEB-21A2-4771-851F-F6592835449D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{513C0AEB-21A2-4771-851F-F6592835449D}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{513C0AEB-21A2-4771-851F-F6592835449D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{513C0AEB-21A2-4771-851F-F6592835449D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{513C0AEB-21A2-4771-851F-F6592835449D}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
