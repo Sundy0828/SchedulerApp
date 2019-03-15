@@ -38,12 +38,12 @@ namespace SchedulerWeb.Controllers
 
             // ID's of major/lib art courses taken
             var mmTaken = new List<int>();
-            if (mmCoursesTaken != "")
+            if (mmCoursesTaken != "" && mmCoursesTaken != null)
             {
                 mmTaken = mmCoursesTaken.Split(',').Select(Int32.Parse).ToList();
             }
             var libArtTaken = new List<int>();
-            if (libArtCoursesTaken != "")
+            if (libArtCoursesTaken != "" && libArtCoursesTaken != null)
             {
                 libArtTaken = libArtCoursesTaken.Split(',').Select(Int32.Parse).ToList();
             }
