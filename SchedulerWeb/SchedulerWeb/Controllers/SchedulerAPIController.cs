@@ -161,7 +161,7 @@ namespace SchedulerWeb.Controllers
                 mmTaken = mmCoursesTaken.Split(',').Select(Int32.Parse).ToList();
             }
             var libArtTaken = new List<int>();
-            if (mmCoursesTaken != "")
+            if (libArtCoursesTaken != "")
             {
                 libArtTaken = libArtCoursesTaken.Split(',').Select(Int32.Parse).ToList();
             }
@@ -180,8 +180,6 @@ namespace SchedulerWeb.Controllers
                     libArts.Remove(libArts.Where(l => l.LibArt_ID == course.LibArt_ID).FirstOrDefault());
                 }
             }
-            // remove internship for SCY since diaz counts both as one
-            //courseList.Remove(courseList.Where(c => c.MCode == "SCY" && c.CCode == "430").FirstOrDefault());
 
             // get final schedule
             var finalSchedule = scheduleService.getFinalSchedule(libArts, courseList, "Fall", 2019, 17, 8, schoolID, takenCourses);
