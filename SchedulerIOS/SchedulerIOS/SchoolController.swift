@@ -22,4 +22,5 @@ class SchoolController: UITableViewController {
     }
     
     
+    
 }
