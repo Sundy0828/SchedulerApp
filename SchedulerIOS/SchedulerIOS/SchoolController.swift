@@ -12,8 +12,9 @@ import UIKit
 class SchoolController: UITableViewController {
     
     var data = DataController()
-    
     var schools: [School] = []
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
