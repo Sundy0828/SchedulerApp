@@ -10,7 +10,7 @@ namespace SchedulerWeb.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            return RedirectToAction("Index", "Schedule");
         }
 
         public ActionResult About()

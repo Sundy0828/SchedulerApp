@@ -100,6 +100,7 @@ namespace SchedulerWeb.DataLayer
             return courseList.OrderBy(c => c.CCode).ToList();
         }
 
+        private Dictionary<String, Course> courseCodes = new Dictionary<String, Course>();
         private Dictionary<Course, int> priorityList = new Dictionary<Course, int>();
         // this is to add priority to courses, Programming 1 gets higher priority since
         // it is the bottom of the tree and needed for everything
@@ -124,7 +125,7 @@ namespace SchedulerWeb.DataLayer
                     // loop through prerequisites and add them to list
                     foreach (var courseCode in majorPrerequisites)
                     {
-                        var courseItem = getCourse(courseCode, schoolID);
+                        var courseItem = courseCodes[courseCode];
                         prerequisitesList.Add(courseItem);
                     }
                     // go back through list to make sure base values get more priority
@@ -159,7 +160,7 @@ namespace SchedulerWeb.DataLayer
                     foreach (var courseCode in majorCourses)
                     {
                         // if course not taken loop through that course to check if prerequisites are met
-                        var courseItem = getCourse(courseCode, schoolID);
+                        var courseItem = courseCodes[courseCode];
                         // if junior status and prerequisites are currently being taken
                         if (taken.Sum(t => t.Credits) >= 60)
                         {
@@ -182,7 +183,7 @@ namespace SchedulerWeb.DataLayer
                     foreach (var courseCode in majorCourses)
                     {
                         // if course not taken loop through that course to check if prerequisites are met
-                        var courseItem = getCourse(courseCode, schoolID);
+                        var courseItem = courseCodes[courseCode];
                         if (!taken.Contains(courseItem))
                         {
                             courseHolder = getNextCourse(courseItem, taken, curTaken, schoolID);
@@ -218,6 +219,7 @@ namespace SchedulerWeb.DataLayer
             foreach (var course in courseList)
             {
                 priorityList.Add(course, 0);
+                courseCodes.Add(course.MCode + " " + course.CCode, course);
             }
             // set priority to each course and order by priority
             priorityListLoop(courseList, schoolID);
@@ -227,7 +229,6 @@ namespace SchedulerWeb.DataLayer
             // add previously taken courses
             foreach (var ID in takenCourses)
             {
-                
                 var course = getCourse(ID);
                 courseList.Remove(course);
                 curTaken.Add(course);

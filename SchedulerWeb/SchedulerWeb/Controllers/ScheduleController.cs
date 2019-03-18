@@ -27,7 +27,7 @@ namespace SchedulerWeb.Controllers
         }
 
         // GET: Schedule
-        public ActionResult FinalSchedule(int schoolID, string majors, string mmCoursesTaken, string libArtCoursesTaken)
+        public ActionResult FinalSchedule(int schoolID, string majors, string mmCoursesTaken, string libArtCoursesTaken, String startSem, int startYear, int maxCredits, int maxSem)
         {
             // generic School id
             //int schoolID = 1;
@@ -38,12 +38,12 @@ namespace SchedulerWeb.Controllers
 
             // ID's of major/lib art courses taken
             var mmTaken = new List<int>();
-            if (mmCoursesTaken != "")
+            if (mmCoursesTaken != "" && mmCoursesTaken != null)
             {
                 mmTaken = mmCoursesTaken.Split(',').Select(Int32.Parse).ToList();
             }
             var libArtTaken = new List<int>();
-            if (mmCoursesTaken != "")
+            if (libArtCoursesTaken != "" && libArtCoursesTaken != null)
             {
                 libArtTaken = libArtCoursesTaken.Split(',').Select(Int32.Parse).ToList();
             }
@@ -62,11 +62,9 @@ namespace SchedulerWeb.Controllers
                     libArts.Remove(libArts.Where(l => l.LibArt_ID == course.LibArt_ID).FirstOrDefault());
                 }
             }
-            // remove internship for SCY since diaz counts both as one
-            //courseList.Remove(courseList.Where(c => c.MCode == "SCY" && c.CCode == "430").FirstOrDefault());
 
             // get final schedule
-            var finalSchedule = scheduleService.getFinalSchedule(libArts, courseList, "Fall", 2019, 17, 8, schoolID, takenCourses);
+            var finalSchedule = scheduleService.getFinalSchedule(libArts, courseList, startSem, startYear, maxCredits, maxSem, schoolID, takenCourses);
             ViewBag.finalSchedule = finalSchedule;
 
             return View();

@@ -31,8 +31,7 @@ struct Course: Decodable {
 
 struct MajorMinor: Decodable {
     let ID: Int?
-    let Code: String?
-    let Title: String?
+    let MMName: String?
 }
 
 struct Semester: Decodable {
@@ -54,7 +53,7 @@ class DataController: NSObject {
     
     func getSchools() -> [School] {
         var schools: [School] = []
-        let JsonUrlString = baseURL + "GetSchools"
+        let JsonUrlString = baseURL + GetSchools
         guard let Url = URL(string: JsonUrlString) else { return schools }
         
         let (data, _, _) = URLSession.shared.synchronousDataTask(with: Url)
