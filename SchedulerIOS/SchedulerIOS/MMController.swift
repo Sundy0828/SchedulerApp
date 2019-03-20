@@ -11,8 +11,12 @@ import UIKit
 
 class MMController: UIViewController {
     
+    var data = DataController()
+    var majorminor: [MajorMinor] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        majorminor = data.getMM(MajorType: <#T##Bool#>)
         // Do any additional setup after loading the view, typically from a nib.
     }
     
