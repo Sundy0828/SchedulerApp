@@ -7,22 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4E0C56CA2241D42F00744264 /* SchoolSelectionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0C56C92241D42F00744264 /* SchoolSelectionTableViewController.swift */; };
+		4E0C56CC2241E4AC00744264 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0C56CB2241E4AC00744264 /* SettingsViewController.swift */; };
+		4E0C56D22242096100744264 /* SemesterTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0C56D12242096100744264 /* SemesterTableViewController.swift */; };
+		4E0C56D42242099700744264 /* MajorSelectionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0C56D32242099700744264 /* MajorSelectionTableViewController.swift */; };
 		4EE7A4DB21FF6AD500871D60 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE7A4DA21FF6AD500871D60 /* AppDelegate.swift */; };
-		4EE7A4DD21FF6AD500871D60 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE7A4DC21FF6AD500871D60 /* ViewController.swift */; };
 		4EE7A4E021FF6AD500871D60 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4EE7A4DE21FF6AD500871D60 /* Main.storyboard */; };
 		4EE7A4E221FF6AD600871D60 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4EE7A4E121FF6AD600871D60 /* Assets.xcassets */; };
 		4EE7A4E521FF6AD600871D60 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4EE7A4E321FF6AD600871D60 /* LaunchScreen.storyboard */; };
 		4EE7A4F021FF6AD600871D60 /* Group_AppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE7A4EF21FF6AD600871D60 /* Group_AppTests.swift */; };
 		4EE7A4FB21FF6AD600871D60 /* Group_AppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE7A4FA21FF6AD600871D60 /* Group_AppUITests.swift */; };
-		4EE7A50921FF715100871D60 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE7A50821FF715100871D60 /* LogInViewController.swift */; };
-		4EE7A50B21FF718900871D60 /* CreateAcctViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE7A50A21FF718900871D60 /* CreateAcctViewController.swift */; };
-		4EFCE9A32204AF67006B340C /* MajorPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFCE9A22204AF67006B340C /* MajorPickerViewController.swift */; };
-		4EFCE9A52204B15B006B340C /* ClassTakenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFCE9A42204B15B006B340C /* ClassTakenViewController.swift */; };
-		4EFCE9A72204B356006B340C /* PreviousSaveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFCE9A62204B356006B340C /* PreviousSaveViewController.swift */; };
-		4EFCE9A92204B501006B340C /* CourseRemainingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFCE9A82204B501006B340C /* CourseRemainingViewController.swift */; };
-		4EFCE9AB220DEE42006B340C /* LiberalArtsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFCE9AA220DEE42006B340C /* LiberalArtsViewController.swift */; };
-		4EFCE9AD220DF018006B340C /* ScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFCE9AC220DF018006B340C /* ScheduleViewController.swift */; };
-		4EFCE9AF220DF106006B340C /* SaveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFCE9AE220DF106006B340C /* SaveViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,9 +37,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4E0C56C92241D42F00744264 /* SchoolSelectionTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolSelectionTableViewController.swift; sourceTree = "<group>"; };
+		4E0C56CB2241E4AC00744264 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		4E0C56D12242096100744264 /* SemesterTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemesterTableViewController.swift; sourceTree = "<group>"; };
+		4E0C56D32242099700744264 /* MajorSelectionTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MajorSelectionTableViewController.swift; sourceTree = "<group>"; };
 		4EE7A4D721FF6AD500871D60 /* Group App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Group App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4EE7A4DA21FF6AD500871D60 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		4EE7A4DC21FF6AD500871D60 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		4EE7A4DF21FF6AD500871D60 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		4EE7A4E121FF6AD600871D60 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4EE7A4E421FF6AD600871D60 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -56,15 +53,6 @@
 		4EE7A4F621FF6AD600871D60 /* Group AppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Group AppUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4EE7A4FA21FF6AD600871D60 /* Group_AppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Group_AppUITests.swift; sourceTree = "<group>"; };
 		4EE7A4FC21FF6AD600871D60 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4EE7A50821FF715100871D60 /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
-		4EE7A50A21FF718900871D60 /* CreateAcctViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAcctViewController.swift; sourceTree = "<group>"; };
-		4EFCE9A22204AF67006B340C /* MajorPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MajorPickerViewController.swift; sourceTree = "<group>"; };
-		4EFCE9A42204B15B006B340C /* ClassTakenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassTakenViewController.swift; sourceTree = "<group>"; };
-		4EFCE9A62204B356006B340C /* PreviousSaveViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviousSaveViewController.swift; sourceTree = "<group>"; };
-		4EFCE9A82204B501006B340C /* CourseRemainingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseRemainingViewController.swift; sourceTree = "<group>"; };
-		4EFCE9AA220DEE42006B340C /* LiberalArtsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiberalArtsViewController.swift; sourceTree = "<group>"; };
-		4EFCE9AC220DF018006B340C /* ScheduleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleViewController.swift; sourceTree = "<group>"; };
-		4EFCE9AE220DF106006B340C /* SaveViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,19 +104,13 @@
 			isa = PBXGroup;
 			children = (
 				4EE7A4DA21FF6AD500871D60 /* AppDelegate.swift */,
-				4EE7A50821FF715100871D60 /* LogInViewController.swift */,
-				4EFCE9A42204B15B006B340C /* ClassTakenViewController.swift */,
-				4EFCE9A62204B356006B340C /* PreviousSaveViewController.swift */,
-				4EFCE9AA220DEE42006B340C /* LiberalArtsViewController.swift */,
-				4EE7A4DC21FF6AD500871D60 /* ViewController.swift */,
-				4EFCE9A82204B501006B340C /* CourseRemainingViewController.swift */,
-				4EFCE9A22204AF67006B340C /* MajorPickerViewController.swift */,
-				4EFCE9AE220DF106006B340C /* SaveViewController.swift */,
-				4EFCE9AC220DF018006B340C /* ScheduleViewController.swift */,
 				4EE7A4DE21FF6AD500871D60 /* Main.storyboard */,
-				4EE7A50A21FF718900871D60 /* CreateAcctViewController.swift */,
 				4EE7A4E121FF6AD600871D60 /* Assets.xcassets */,
 				4EE7A4E321FF6AD600871D60 /* LaunchScreen.storyboard */,
+				4E0C56C92241D42F00744264 /* SchoolSelectionTableViewController.swift */,
+				4E0C56CB2241E4AC00744264 /* SettingsViewController.swift */,
+				4E0C56D32242099700744264 /* MajorSelectionTableViewController.swift */,
+				4E0C56D12242096100744264 /* SemesterTableViewController.swift */,
 				4EE7A4E621FF6AD600871D60 /* Info.plist */,
 			);
 			path = "Group App";
@@ -283,17 +265,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4EFCE9A92204B501006B340C /* CourseRemainingViewController.swift in Sources */,
-				4EE7A4DD21FF6AD500871D60 /* ViewController.swift in Sources */,
-				4EFCE9A72204B356006B340C /* PreviousSaveViewController.swift in Sources */,
-				4EFCE9AF220DF106006B340C /* SaveViewController.swift in Sources */,
+				4E0C56CA2241D42F00744264 /* SchoolSelectionTableViewController.swift in Sources */,
+				4E0C56D22242096100744264 /* SemesterTableViewController.swift in Sources */,
 				4EE7A4DB21FF6AD500871D60 /* AppDelegate.swift in Sources */,
-				4EFCE9AB220DEE42006B340C /* LiberalArtsViewController.swift in Sources */,
-				4EFCE9AD220DF018006B340C /* ScheduleViewController.swift in Sources */,
-				4EE7A50921FF715100871D60 /* LogInViewController.swift in Sources */,
-				4EE7A50B21FF718900871D60 /* CreateAcctViewController.swift in Sources */,
-				4EFCE9A32204AF67006B340C /* MajorPickerViewController.swift in Sources */,
-				4EFCE9A52204B15B006B340C /* ClassTakenViewController.swift in Sources */,
+				4E0C56D42242099700744264 /* MajorSelectionTableViewController.swift in Sources */,
+				4E0C56CC2241E4AC00744264 /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
