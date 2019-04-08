@@ -43,7 +43,7 @@ struct Semester: Decodable {
 
 class DataController: NSObject {
     
-    let baseURL = "http://shuscheduler.azurewebsites.net/api/SchedulerAPI/"
+    let baseURL = "http://sandbox.pssolutions.net/api/SchedulerAPI/"
     let GetSchools = "GetSchools"
     let GetLibArtCourses = "GetLibArtCourses"
     let GetMMCourses = "GetMajorCourses"
