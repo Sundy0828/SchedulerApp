@@ -11,6 +11,9 @@ import UIKit
 
 class TakenLibArtController: UIViewController {
     
+    var data = DataController()
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.

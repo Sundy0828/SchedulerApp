@@ -34,19 +34,6 @@ class SchoolController: UITableViewController {
         return schools.count
     }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let secondViewController = MMController()
-        let navigationController = UINavigationController(rootViewController: secondViewController)
-        show(navigationController, sender: nil)
-    }
-    }
-    
-    func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "segue" {
-            
-
-            // perform custom segue operation.
-        }
     }
         //Use below to get reference,so that you can pass value
             //segue.destinationViewController

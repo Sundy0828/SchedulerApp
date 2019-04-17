@@ -12,24 +12,26 @@ import UIKit
 class MMController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var data = DataController()
-    var majors: [MajorMinor] = []
-    @IBOutlet weak var majorcell: UITableViewCell!
-    @IBOutlet weak var minorcell: UITableViewCell!
-    @IBOutlet weak var MajorName: UILabel!
-    @IBOutlet weak var MinorName: UILabel!
+    var majors: [Major] = []
+    //var courses: [MajorMinor] = []
+    
+    
+    
     @IBOutlet weak var MajorTable: UITableView!
+    
     @IBOutlet weak var MinorTable: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        majors = data.getMM(MajorType: true)
+        majors = data.getMajor()
+        //courses = data.getMM(MajorType: true)
         
-        MajorTable.delegate = self
-        MajorTable.dataSource = self
+       // MajorTable.dataSource = self
+       // MajorTable.delegate = self
     }
+    
       func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = MajorTable.dequeueReusableCell(withIdentifier: "com.codepath.majorcell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "com.codepath.majorcell", for: indexPath)
         cell.textLabel?.text = majors[indexPath.row].MMName
         return cell
     }
@@ -39,7 +41,7 @@ class MMController: UIViewController, UITableViewDelegate, UITableViewDataSource
     }
     
     
-    
 }
+
 
 

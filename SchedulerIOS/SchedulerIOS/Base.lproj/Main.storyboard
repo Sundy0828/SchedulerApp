@@ -361,10 +361,13 @@
                             <outlet property="delegate" destination="px7-PZ-PQ5" id="zPd-GK-4hI"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Select School" id="mar-oW-WKE"/>
-                    <connections>
-                        <segue destination="Jha-sv-OVG" kind="show" identifier="segue" id="le0-Va-yjw"/>
-                    </connections>
+                    <navigationItem key="navigationItem" title="Select School" id="mar-oW-WKE">
+                        <barButtonItem key="rightBarButtonItem" title="Next &gt;" id="I0k-88-bYP">
+                            <connections>
+                                <segue destination="Rj2-fS-WB3" kind="push" id="XZx-nH-r88"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RgI-Lt-uBT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -373,13 +376,13 @@
         <!--Minors-->
         <scene sceneID="Blz-8O-hFX">
             <objects>
-                <tableViewController title="Minors" id="2Ci-m9-ofd" sceneMemberID="viewController">
+                <tableViewController title="Minors" id="2Ci-m9-ofd" customClass="MinorController" customModule="SchedulerIOS" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Fha-be-ps2">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="vYR-4U-9s8">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="com.codepath.minorcell" id="vYR-4U-9s8">
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="vYR-4U-9s8" id="LNM-PY-BC3">
@@ -393,21 +396,28 @@
                             <outlet property="delegate" destination="2Ci-m9-ofd" id="kp3-9E-QkD"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" title="Minors" id="hYt-E0-Kza">
+                        <barButtonItem key="rightBarButtonItem" title="Next &gt;" id="oxQ-Yz-eXf">
+                            <connections>
+                                <segue destination="mA3-xW-jGI" kind="push" id="tq7-AU-od3"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gnU-Y2-bQ4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="873" y="820"/>
+            <point key="canvasLocation" x="1564" y="134"/>
         </scene>
         <!--Majors-->
         <scene sceneID="hCw-Yz-uog">
             <objects>
-                <tableViewController title="Majors" id="Rj2-fS-WB3" sceneMemberID="viewController">
+                <tableViewController title="Majors" id="Rj2-fS-WB3" customClass="MajorController" customModule="SchedulerIOS" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="MMc-8c-iJY">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="GNS-rn-V8z">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="com.codepath.majorcell" id="GNS-rn-V8z">
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="GNS-rn-V8z" id="Fdc-yG-yof">
@@ -421,10 +431,17 @@
                             <outlet property="delegate" destination="Rj2-fS-WB3" id="uLz-uz-iLZ"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" title="Majors" id="vXr-b2-WmC">
+                        <barButtonItem key="rightBarButtonItem" title="Next &gt;" id="LRv-tq-Bw6">
+                            <connections>
+                                <segue destination="2Ci-m9-ofd" kind="push" id="kgn-ed-hWE"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mfi-CK-eCV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1687" y="820"/>
+            <point key="canvasLocation" x="714" y="134"/>
         </scene>
         <!--Taken MM Courses-->
         <scene sceneID="RSu-jJ-qgd">
@@ -478,6 +495,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="MBh-Mt-Pz5"/>
                     </view>
+                    <navigationItem key="navigationItem" id="wXr-A2-63E"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oOF-yj-2bI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -577,37 +595,34 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="rUB-HY-IDl">
-                                <rect key="frame" x="16" y="132" width="343" height="519"/>
+                                <rect key="frame" x="16" y="36" width="343" height="615"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="n4i-Ph-bkw">
-                                        <rect key="frame" x="0.0" y="0.0" width="343" height="453"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="343" height="549"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="19" translatesAutoresizingMaskIntoConstraints="NO" id="6vH-rh-Mdf">
-                                                <rect key="frame" x="0.0" y="0.0" width="343" height="222.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="343" height="270.5"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" spacing="103" translatesAutoresizingMaskIntoConstraints="NO" id="ILi-BF-vBP">
-                                                        <rect key="frame" x="0.0" y="0.0" width="343" height="23.5"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="343" height="36"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Majors" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ncl-C2-HCy">
-                                                                <rect key="frame" x="0.0" y="0.0" width="52.5" height="23.5"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="52.5" height="36"/>
                                                                 <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="17"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fle-80-WiH">
-                                                                <rect key="frame" x="313" y="0.0" width="30" height="23.5"/>
+                                                                <rect key="frame" x="313" y="0.0" width="30" height="36"/>
                                                                 <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="17"/>
                                                                 <state key="normal" title="+">
                                                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 </state>
-                                                                <connections>
-                                                                    <segue destination="Rj2-fS-WB3" kind="show" id="a8R-RC-ZlI"/>
-                                                                </connections>
                                                             </button>
                                                         </subviews>
                                                     </stackView>
                                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="7OF-cc-lqK">
-                                                        <rect key="frame" x="0.0" y="42.5" width="343" height="180"/>
+                                                        <rect key="frame" x="0.0" y="55" width="343" height="215.5"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <prototypes>
                                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="com.codepath.majorcell" id="qUI-0D-eKH">
@@ -617,8 +632,13 @@
                                                                     <rect key="frame" x="0.0" y="0.0" width="343" height="43.5"/>
                                                                     <autoresizingMask key="autoresizingMask"/>
                                                                 </tableViewCellContentView>
+                                                                <accessibility key="accessibilityConfiguration" identifier="majorcell"/>
                                                             </tableViewCell>
                                                         </prototypes>
+                                                        <connections>
+                                                            <outlet property="dataSource" destination="cvj-BX-wmZ" id="asf-P7-kAr"/>
+                                                            <outlet property="delegate" destination="cvj-BX-wmZ" id="Bi0-yr-KHG"/>
+                                                        </connections>
                                                     </tableView>
                                                 </subviews>
                                                 <constraints>
@@ -629,31 +649,28 @@
                                                 </constraints>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="19" translatesAutoresizingMaskIntoConstraints="NO" id="Dxo-H8-FfA">
-                                                <rect key="frame" x="0.0" y="230.5" width="343" height="222.5"/>
+                                                <rect key="frame" x="0.0" y="278.5" width="343" height="270.5"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" spacing="103" translatesAutoresizingMaskIntoConstraints="NO" id="LAk-Jd-Azh">
-                                                        <rect key="frame" x="0.0" y="0.0" width="343" height="23.5"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="343" height="36"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Minors" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zci-fh-9QK">
-                                                                <rect key="frame" x="0.0" y="0.0" width="53.5" height="23.5"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="53.5" height="36"/>
                                                                 <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="17"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="flM-pJ-Oix">
-                                                                <rect key="frame" x="313" y="0.0" width="30" height="23.5"/>
+                                                                <rect key="frame" x="313" y="0.0" width="30" height="36"/>
                                                                 <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="17"/>
                                                                 <state key="normal" title="+">
                                                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 </state>
-                                                                <connections>
-                                                                    <segue destination="2Ci-m9-ofd" kind="show" id="BAP-CU-UOp"/>
-                                                                </connections>
                                                             </button>
                                                         </subviews>
                                                     </stackView>
                                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Aqg-1T-RUL">
-                                                        <rect key="frame" x="0.0" y="42.5" width="343" height="180"/>
+                                                        <rect key="frame" x="0.0" y="55" width="343" height="215.5"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <prototypes>
                                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="com.codepath.minorcell" id="EUd-ho-emw">
@@ -680,7 +697,7 @@
                                         </constraints>
                                     </stackView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a9o-q9-td1">
-                                        <rect key="frame" x="0.0" y="469" width="343" height="50"/>
+                                        <rect key="frame" x="0.0" y="565" width="343" height="50"/>
                                         <color key="backgroundColor" red="0.7725490196" green="0.1176470588" blue="0.2274509804" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="8n4-Gk-IcY"/>
@@ -694,9 +711,6 @@
                                                 <integer key="value" value="25"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <segue destination="mA3-xW-jGI" kind="show" id="2PV-Pq-ikX"/>
-                                        </connections>
                                     </button>
                                 </subviews>
                                 <constraints>
@@ -716,12 +730,13 @@
                         <viewLayoutGuide key="safeArea" id="c2c-gM-DLs"/>
                     </view>
                     <connections>
-                        <outlet property="MajorTable" destination="7OF-cc-lqK" id="1fN-IZ-H5c"/>
+                        <outlet property="MajorTable" destination="7OF-cc-lqK" id="SWR-yC-iae"/>
+                        <outlet property="MinorTable" destination="Aqg-1T-RUL" id="fMq-sP-e1Z"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eTd-b2-dZI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="872.79999999999995" y="133.5832083958021"/>
+            <point key="canvasLocation" x="1087" y="-824"/>
         </scene>
     </scenes>
 </document>

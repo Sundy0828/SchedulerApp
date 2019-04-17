@@ -9,11 +9,28 @@
 import Foundation
 import UIKit
 
-class MajorController: UIViewController {
+class MajorController: UITableViewController {
+    
+    var data = DataController()
+    var majors: [Major] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        majors = data.getMajor()
+        //courses = data.getMM(MajorType: true)
+        
+        // MajorTable.dataSource = self
+        // MajorTable.delegate = self
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "com.codepath.majorcell", for: indexPath)
+        cell.textLabel?.text = majors[indexPath.row].MMName
+        return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return majors.count
     }
     
     
