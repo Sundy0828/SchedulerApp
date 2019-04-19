@@ -33,6 +33,7 @@ class MMController: UIViewController, UITableViewDelegate, UITableViewDataSource
       func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "com.codepath.majorcell", for: indexPath)
         cell.textLabel?.text = majors[indexPath.row].MMName
+        
         return cell
     }
     

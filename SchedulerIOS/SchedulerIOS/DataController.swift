@@ -51,6 +51,32 @@ struct Minor: Decodable {
     let ID: Int?
 }
 
+struct MMCourses: Decodable {
+    let ID: Int?
+    let MCode: String?
+    let CCode: String?
+    let SCode: String?
+    let Title: String?
+    let Prerequisites: String?
+    let Semester: String?
+    let Year: String?
+    let Credits: Int?
+    let LibArt: String?
+}
+
+struct LCourses: Decodable {
+    let ID: Int?
+    let MCode: String?
+    let CCode: String?
+    let SCode: String?
+    let Title: String?
+    let Prerequisites: String?
+    let Semester: String?
+    let Year: String?
+    let Credits: Int?
+    let LibArt: String?
+}
+
 class DataController: NSObject {
     
     let baseURL = "http://sandbox.pssolutions.net/api/SchedulerAPI/"
@@ -157,6 +183,35 @@ class DataController: NSObject {
         
         return minors
     }
+    
+    func getCourses() -> [MMCourses] {
+        var mmcourses: [MMCourses] = []
+        let JsonUrlString = baseURL + GetMMCourses
+        guard let Url = URL(string: JsonUrlString) else { return mmcourses }
+        
+        let (data, _, _) = URLSession.shared.synchronousDataTask(with: Url)
+        do {
+            mmcourses = try JSONDecoder().decode([MMCourses].self, from: (data ?? nil)!)
+        } catch let jsonErr {
+            print("Error Serializing Json:", jsonErr)
+        }
+        return mmcourses
+    }
+    
+    func getLib() -> [LCourses] {
+        var lcourses: [LCourses] = []
+        let JsonUrlString = baseURL + GetLibArtCourses
+        guard let Url = URL(string: JsonUrlString) else { return lcourses }
+        
+        let (data, _, _) = URLSession.shared.synchronousDataTask(with: Url)
+        do {
+            lcourses = try JSONDecoder().decode([LCourses].self, from: (data ?? nil)!)
+        } catch let jsonErr {
+            print("Error Serializing Json:", jsonErr)
+        }
+        return lcourses
+    }
+    
 }
 
 extension URLSession {
