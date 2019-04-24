@@ -184,28 +184,25 @@ namespace SchedulerWeb.Controllers
             // get final schedule
             var finalSchedule = scheduleService.getFinalSchedule(libArts, courseList, startSem, startYear, maxCredits, maxSem, schoolID, takenCourses);
 
-            var schedule = new
+            var schedule = finalSchedule.Select(semester => new
             {
-                semester = finalSchedule.Select(semester => new
+                semester = semester.currSem,
+                year = semester.currYear,
+                credits = semester.currCredits,
+                courses = semester.courses.Select(course => new
                 {
-                    semester = semester.currSem,
-                    year = semester.currYear,
-                    credits = semester.currCredits,
-                    courses = semester.courses.Select(course => new
-                    {
-                        ID = course.ID,
-                        MCode = course.MCode,
-                        CCode = course.CCode,
-                        SCode = course.SCode,
-                        Title = course.Title,
-                        Prerequisites = course.Prerequisites,
-                        Semester = course.Semester.Description,
-                        Year = course.Year.Description,
-                        Credits = course.Credits,
-                        LibArt = course.LibArt.Description
-                    })
+                    ID = course.ID,
+                    MCode = course.MCode,
+                    CCode = course.CCode,
+                    SCode = course.SCode,
+                    Title = course.Title,
+                    Prerequisites = course.Prerequisites,
+                    Semester = course.Semester.Description,
+                    Year = course.Year.Description,
+                    Credits = course.Credits,
+                    LibArt = course.LibArt.Description
                 })
-            };
+            });
             JavaScriptSerializer serializer = new JavaScriptSerializer();
             var output = serializer.Serialize(schedule);
             var test = JsonConvert.DeserializeObject<dynamic>(output);
