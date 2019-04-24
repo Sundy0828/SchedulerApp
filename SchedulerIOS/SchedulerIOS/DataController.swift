@@ -81,8 +81,8 @@ class DataController: NSObject {
     
     let baseURL = "http://sandbox.pssolutions.net/api/SchedulerAPI/"
     let GetSchools = "GetSchools"
-    let GetLibArtCourses = "GetLibArtCourses"
-    let GetMMCourses = "GetMajorCourses"
+    let GetLibArtCourses = "GetLibArtCourses?schoolID=1"
+    let GetMMCourses = "GetMajorCourses?schoolID=1&majors=1,3"
     let GetFinalSchedule = "GetFinalSchedule"
     let GetMajors = "GetMajors?schoolID=1"
     let GetMinors = "GetMinors?schoolID=1"

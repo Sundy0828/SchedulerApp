@@ -446,7 +446,7 @@
         <!--Taken MM Courses-->
         <scene sceneID="RSu-jJ-qgd">
             <objects>
-                <viewController title="Taken MM Courses" id="mA3-xW-jGI" sceneMemberID="viewController">
+                <viewController title="Taken MM Courses" id="mA3-xW-jGI" customClass="TakenMMController" customModule="SchedulerIOS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="zT3-lf-phm">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -514,7 +514,7 @@
         <!--Taken Lib Arts-->
         <scene sceneID="cyx-oS-FSD">
             <objects>
-                <viewController title="Taken Lib Arts" id="Ili-hT-A7R" sceneMemberID="viewController">
+                <viewController title="Taken Lib Arts" id="Ili-hT-A7R" customClass="TakenLibArtController" customModule="SchedulerIOS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="iPy-bb-J28">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -573,6 +573,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="xvk-bu-SZZ"/>
                     </view>
+                    <connections>
+                        <outlet property="LibArtsTable" destination="5rX-by-QZl" id="AqI-kh-Bqe"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OBh-Ub-CjR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

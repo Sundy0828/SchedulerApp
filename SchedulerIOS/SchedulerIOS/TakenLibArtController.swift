@@ -9,19 +9,26 @@
 import Foundation
 import UIKit
 
-class TakenLibArtController: UIViewController {
+class TakenLibArtController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var data = DataController()
     var lcourses: [LCourses] = []
+    
+    
+    
+    @IBOutlet weak var LibArtsTable: UITableView!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         lcourses = data.getLib()
         // Do any additional setup after loading the view, typically from a nib.
+        LibArtsTable.dataSource = self
+        LibArtsTable.delegate = self
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "com.codepath.lcoursecell", for: indexPath)
+        let cell = LibArtsTable.dequeueReusableCell(withIdentifier: "com.codepath.lcoursecell", for: indexPath)
         cell.textLabel?.text = lcourses[indexPath.row].Title
         return cell
     }
