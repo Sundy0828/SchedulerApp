@@ -9,6 +9,9 @@
 import Foundation
 import UIKit
 
+var schoolID = 0
+var majors: [Major] = []
+
 struct School: Decodable {
     let ID: Int?
     let SchoolName: String?
@@ -140,7 +143,7 @@ class DataController: NSObject {
         return courses
     }
     
-    func getFinalSchedule() -> [Semester] {
+    func getFinalSchedule(schoolID: Int, majors: [Major]) -> [Semester] {
         var semesters: [Semester] = []
         let JsonUrlString = baseURL + GetFinalSchedule
         guard let Url = URL(string: JsonUrlString) else { return semesters}

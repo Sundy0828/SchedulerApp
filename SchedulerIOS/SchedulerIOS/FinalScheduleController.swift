@@ -10,9 +10,10 @@ import Foundation
 import UIKit
 
 class FinalScheduleController: UIViewController {
-    
+    var data = DataController()
     override func viewDidLoad() {
         super.viewDidLoad()
+        data.getFinalSchedule(schoolID: schoolID, majors: majors)
         // Do any additional setup after loading the view, typically from a nib.
     }
     
