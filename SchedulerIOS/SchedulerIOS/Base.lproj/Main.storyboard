@@ -434,6 +434,7 @@
                     <navigationItem key="navigationItem" title="Majors" id="vXr-b2-WmC">
                         <barButtonItem key="rightBarButtonItem" title="Next &gt;" id="LRv-tq-Bw6">
                             <connections>
+                                <action selector="next:" destination="Rj2-fS-WB3" id="hZ1-tE-ONN"/>
                                 <segue destination="2Ci-m9-ofd" kind="push" id="kgn-ed-hWE"/>
                             </connections>
                         </barButtonItem>
@@ -458,13 +459,25 @@
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="469"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="com.codepath.mcoursecell" id="F1Y-v5-Qra">
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="com.codepath.mcoursecell" id="F1Y-v5-Qra" customClass="CourseTableViewCell" customModule="SchedulerIOS" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="F1Y-v5-Qra" id="cks-tu-3lv">
                                                     <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eDw-db-IIw">
+                                                            <rect key="frame" x="15" y="4" width="360" height="34"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
                                                 </tableViewCellContentView>
+                                                <connections>
+                                                    <outlet property="CourseName" destination="eDw-db-IIw" id="nvv-R8-e27"/>
+                                                </connections>
                                             </tableViewCell>
                                         </prototypes>
                                     </tableView>
@@ -506,10 +519,13 @@
                         <viewLayoutGuide key="safeArea" id="MBh-Mt-Pz5"/>
                     </view>
                     <navigationItem key="navigationItem" title="Taken Major Courses" id="wXr-A2-63E"/>
+                    <connections>
+                        <outlet property="tableView" destination="mzS-yY-Thw" id="uqw-Jc-o28"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oOF-yj-2bI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2518" y="134"/>
+            <point key="canvasLocation" x="2517.5999999999999" y="133.5832083958021"/>
         </scene>
         <!--Taken Lib Arts-->
         <scene sceneID="cyx-oS-FSD">

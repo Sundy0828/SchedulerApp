@@ -11,6 +11,12 @@ import UIKit
 
 var schoolID = 0
 var majors: [Major] = []
+<<<<<<< Updated upstream
+=======
+var minors: [Minor] = []
+var libarts: [LCourses] = []
+var courses: [MMCourses] = []
+>>>>>>> Stashed changes
 
 struct School: Decodable {
     let ID: Int?
@@ -86,7 +92,7 @@ class DataController: NSObject {
     let GetSchools = "GetSchools"
     let GetLibArtCourses = "GetLibArtCourses?schoolID=1"
     let GetMMCourses = "GetMajorCourses?schoolID=1&majors=1,3"
-    let GetFinalSchedule = "GetFinalSchedule"
+    let GetFinalSchedule = "GetFinalSchedule?schoolID=1&majors=1,3&mmCoursesTaken=22&libArtCoursesTaken=&startSem=Fall&startYear=2019&maxCredits=17&maxSem=8"
     let GetMajors = "GetMajors?schoolID=1"
     let GetMinors = "GetMinors?schoolID=1"
     

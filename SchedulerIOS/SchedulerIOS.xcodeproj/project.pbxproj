@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4EDFCD2D227BDF660072E246 /* CourseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDFCD2C227BDF660072E246 /* CourseTableViewCell.swift */; };
 		A422C0D52215EB0200265B55 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A422C0D42215EB0200265B55 /* AppDelegate.swift */; };
 		A422C0D72215EB0200265B55 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A422C0D62215EB0200265B55 /* ViewController.swift */; };
 		A422C0DA2215EB0200265B55 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A422C0D82215EB0200265B55 /* Main.storyboard */; };
@@ -23,6 +24,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4EDFCD2C227BDF660072E246 /* CourseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseTableViewCell.swift; sourceTree = "<group>"; };
 		A422C0D12215EB0200265B55 /* SchedulerIOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SchedulerIOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A422C0D42215EB0200265B55 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A422C0D62215EB0200265B55 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -82,6 +84,7 @@
 				A486137C221C77ED00878795 /* MinorController.swift */,
 				A486137E221C780400878795 /* TakenMMController.swift */,
 				A4861380221C781300878795 /* TakenLibArtController.swift */,
+				4EDFCD2C227BDF660072E246 /* CourseTableViewCell.swift */,
 				A4861382221C784F00878795 /* FinalScheduleController.swift */,
 				A48613A8221D044300878795 /* DataController.swift */,
 			);
@@ -169,6 +172,7 @@
 				A422C0D52215EB0200265B55 /* AppDelegate.swift in Sources */,
 				A4861377221C774C00878795 /* SchoolController.swift in Sources */,
 				A4861379221C777600878795 /* MMController.swift in Sources */,
+				4EDFCD2D227BDF660072E246 /* CourseTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

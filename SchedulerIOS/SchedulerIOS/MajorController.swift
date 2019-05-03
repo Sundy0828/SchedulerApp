@@ -14,9 +14,11 @@ class MajorController: UITableViewController {
     var data = DataController()
     var majors: [Major] = []
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         majors = data.getMajor()
+        tableView.allowsMultipleSelection = true
         //courses = data.getMM(MajorType: true)
         
         // MajorTable.dataSource = self
