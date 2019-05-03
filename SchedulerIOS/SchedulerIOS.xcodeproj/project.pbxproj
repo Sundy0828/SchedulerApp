@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4EDFCD2D227BDF660072E246 /* CourseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDFCD2C227BDF660072E246 /* CourseTableViewCell.swift */; };
+		A41EFE24221E35100063CBE8 /* SchoolCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A41EFE23221E35100063CBE8 /* SchoolCell.swift */; };
 		A422C0D52215EB0200265B55 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A422C0D42215EB0200265B55 /* AppDelegate.swift */; };
 		A422C0D72215EB0200265B55 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A422C0D62215EB0200265B55 /* ViewController.swift */; };
 		A422C0DA2215EB0200265B55 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A422C0D82215EB0200265B55 /* Main.storyboard */; };
@@ -24,7 +24,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		4EDFCD2C227BDF660072E246 /* CourseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseTableViewCell.swift; sourceTree = "<group>"; };
+		A41EFE23221E35100063CBE8 /* SchoolCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolCell.swift; sourceTree = "<group>"; };
 		A422C0D12215EB0200265B55 /* SchedulerIOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SchedulerIOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A422C0D42215EB0200265B55 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A422C0D62215EB0200265B55 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -84,9 +84,9 @@
 				A486137C221C77ED00878795 /* MinorController.swift */,
 				A486137E221C780400878795 /* TakenMMController.swift */,
 				A4861380221C781300878795 /* TakenLibArtController.swift */,
-				4EDFCD2C227BDF660072E246 /* CourseTableViewCell.swift */,
 				A4861382221C784F00878795 /* FinalScheduleController.swift */,
 				A48613A8221D044300878795 /* DataController.swift */,
+				A41EFE23221E35100063CBE8 /* SchoolCell.swift */,
 			);
 			path = SchedulerIOS;
 			sourceTree = "<group>";
@@ -165,6 +165,7 @@
 				A486137B221C778700878795 /* MajorController.swift in Sources */,
 				A486137D221C77ED00878795 /* MinorController.swift in Sources */,
 				A422C0D72215EB0200265B55 /* ViewController.swift in Sources */,
+				A41EFE24221E35100063CBE8 /* SchoolCell.swift in Sources */,
 				A4861383221C784F00878795 /* FinalScheduleController.swift in Sources */,
 				A4861381221C781300878795 /* TakenLibArtController.swift in Sources */,
 				A48613A9221D044300878795 /* DataController.swift in Sources */,
@@ -172,7 +173,6 @@
 				A422C0D52215EB0200265B55 /* AppDelegate.swift in Sources */,
 				A4861377221C774C00878795 /* SchoolController.swift in Sources */,
 				A4861379221C777600878795 /* MMController.swift in Sources */,
-				4EDFCD2D227BDF660072E246 /* CourseTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -318,10 +318,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-2";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = BS24VSTST5;
-				ENABLE_ON_DEMAND_RESOURCES = YES;
 				INFOPLIST_FILE = SchedulerIOS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -338,10 +336,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-2";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = BS24VSTST5;
-				ENABLE_ON_DEMAND_RESOURCES = YES;
 				INFOPLIST_FILE = SchedulerIOS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

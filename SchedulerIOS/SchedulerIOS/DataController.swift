@@ -10,13 +10,11 @@ import Foundation
 import UIKit
 
 var schoolID = 0
-var majors: [Major] = []
-<<<<<<< Updated upstream
-=======
-var minors: [Minor] = []
-var libarts: [LCourses] = []
-var courses: [MMCourses] = []
->>>>>>> Stashed changes
+var myMajors: [MajorMinor] = []
+var myMinors: [MajorMinor] = []
+var mmTaken: [Course:Bool] = [:]
+var libArtTaken: [Course:Bool] = [:]
+var finalSchedule: [Semester] = []
 
 struct School: Decodable {
     let ID: Int?
@@ -25,7 +23,7 @@ struct School: Decodable {
     let SecondaryColor: String?
 }
 
-struct Course: Decodable {
+struct Course: Decodable, Hashable {
     let ID: Int?
     let MCode: String?
     let CCode: String?
@@ -36,6 +34,10 @@ struct Course: Decodable {
     let Year: String?
     let Credits: Int?
     let LibArt: String?
+    
+    func getCode() -> String {
+        return MCode! + " " + CCode!
+    }
 }
 
 struct MajorMinor: Decodable {
@@ -50,55 +52,19 @@ struct Semester: Decodable {
     let courses: [Course]?
 }
 
-struct Major: Decodable {
-    let MMName: String?
-    let ID: Int?
-}
-
-struct Minor: Decodable {
-    let MMName: String?
-    let ID: Int?
-}
-
-struct MMCourses: Decodable {
-    let ID: Int?
-    let MCode: String?
-    let CCode: String?
-    let SCode: String?
-    let Title: String?
-    let Prerequisites: String?
-    let Semester: String?
-    let Year: String?
-    let Credits: Int?
-    let LibArt: String?
-}
-
-struct LCourses: Decodable {
-    let ID: Int?
-    let MCode: String?
-    let CCode: String?
-    let SCode: String?
-    let Title: String?
-    let Prerequisites: String?
-    let Semester: String?
-    let Year: String?
-    let Credits: Int?
-    let LibArt: String?
-}
-
 class DataController: NSObject {
     
     let baseURL = "http://sandbox.pssolutions.net/api/SchedulerAPI/"
     let GetSchools = "GetSchools"
-    let GetLibArtCourses = "GetLibArtCourses?schoolID=1"
-    let GetMMCourses = "GetMajorCourses?schoolID=1&majors=1,3"
-    let GetFinalSchedule = "GetFinalSchedule?schoolID=1&majors=1,3&mmCoursesTaken=22&libArtCoursesTaken=&startSem=Fall&startYear=2019&maxCredits=17&maxSem=8"
-    let GetMajors = "GetMajors?schoolID=1"
-    let GetMinors = "GetMinors?schoolID=1"
+    let GetLibArtCourses = "GetLibArtCourses"
+    let GetMMCourses = "GetMajorCourses"
+    let GetFinalSchedule = "GetFinalSchedule"
+    let GetMajors = "GetMajors"
+    let GetMinors = "GetMinors"
     
     func getSchools() -> [School] {
         var schools: [School] = []
-        let JsonUrlString = baseURL + GetSchools
+        let JsonUrlString = baseURL + "GetSchools"
         guard let Url = URL(string: JsonUrlString) else { return schools }
         
         let (data, _, _) = URLSession.shared.synchronousDataTask(with: Url)
@@ -113,9 +79,28 @@ class DataController: NSObject {
     
     func getCourses(CourseType: Bool) -> [Course] {
         var courses: [Course] = []
-        var course = GetMMCourses
+        var listMM:[String] = []
+        if myMajors.count > 0 {
+            for i in 0...myMajors.count - 1 {
+                var id = ""
+                if let item = myMajors[i].ID {
+                    id = String(item)
+                }
+                listMM.append(id)
+            }
+        }
+        if myMinors.count > 0 {
+            for i in 0...myMinors.count - 1 {
+                var id = ""
+                if let item = myMinors[i].ID {
+                    id = String(item)
+                }
+                listMM.append(id)
+            }
+        }
+        var course = GetMMCourses + "?schoolID=\(schoolID)&majors=\(listMM.joined(separator: ","))"
         if (!CourseType) {
-            course = GetLibArtCourses
+            course = GetLibArtCourses + "?schoolID=\(schoolID)"
         }
         let JsonUrlString = baseURL + course
         guard let Url = URL(string: JsonUrlString) else { return courses }
@@ -136,7 +121,7 @@ class DataController: NSObject {
         if (!MajorType) {
             MM = GetMinors
         }
-        let JsonUrlString = baseURL + MM
+        let JsonUrlString = baseURL + MM + "?schoolID=\(schoolID)"
         guard let Url = URL(string: JsonUrlString) else { return courses }
         
         let (data, _, _) = URLSession.shared.synchronousDataTask(with: Url)
@@ -149,9 +134,48 @@ class DataController: NSObject {
         return courses
     }
     
-    func getFinalSchedule(schoolID: Int, majors: [Major]) -> [Semester] {
+    func getFinalSchedule() -> [Semester] {
         var semesters: [Semester] = []
-        let JsonUrlString = baseURL + GetFinalSchedule
+        var listMM:[String] = []
+        if myMajors.count > 0 {
+            for i in 0...myMajors.count - 1 {
+                var id = ""
+                if let item = myMajors[i].ID {
+                    id = String(item)
+                }
+                listMM.append(id)
+            }
+        }
+        if myMinors.count > 0 {
+            for i in 0...myMinors.count - 1 {
+                var id = ""
+                if let item = myMinors[i].ID {
+                    id = String(item)
+                }
+                listMM.append(id)
+            }
+        }
+        var takenMM:[String] = []
+        for (course, taken) in mmTaken {
+            if taken {
+                var id = ""
+                if let item = course.ID {
+                    id = String(item)
+                }
+                takenMM.append(id)
+            }
+        }
+        var takenLibArt:[String] = []
+        for (course, taken) in libArtTaken {
+            if taken {
+                var id = ""
+                if let item = course.ID {
+                    id = String(item)
+                }
+                takenLibArt.append(id)
+            }
+        }
+        let JsonUrlString = baseURL + GetFinalSchedule + "?schoolID=\(schoolID)&majors=\(listMM.joined(separator: ","))&mmCoursesTaken=\(takenMM.joined(separator: ","))&libArtCoursesTaken=\(takenLibArt.joined(separator: ","))&startSem=Fall&startYear=2019&maxCredits=17&maxSem=8"
         guard let Url = URL(string: JsonUrlString) else { return semesters}
         
         let (data, _, _) = URLSession.shared.synchronousDataTask(with: Url)
@@ -164,62 +188,6 @@ class DataController: NSObject {
         return semesters
     }
     
-    func getMajor() -> [Major] {
-        var majors: [Major] = []
-        let JsonUrlString = baseURL + GetMajors
-        guard let Url = URL(string: JsonUrlString) else { return majors }
-        
-        let (data, _, _) = URLSession.shared.synchronousDataTask(with: Url)
-        do {
-            majors = try JSONDecoder().decode([Major].self, from: (data ?? nil)!)
-        } catch let jsonErr {
-            print("Error Serializing Json:", jsonErr)
-        }
-        
-        return majors
-    }
-    func getMinor() -> [Minor] {
-        var minors: [Minor] = []
-        let JsonUrlString = baseURL + GetMinors
-        guard let Url = URL(string: JsonUrlString) else { return minors }
-        
-        let (data, _, _) = URLSession.shared.synchronousDataTask(with: Url)
-        do {
-            minors = try JSONDecoder().decode([Minor].self, from: (data ?? nil)!)
-        } catch let jsonErr {
-            print("Error Serializing Json:", jsonErr)
-        }
-        
-        return minors
-    }
-    
-    func getCourses() -> [MMCourses] {
-        var mmcourses: [MMCourses] = []
-        let JsonUrlString = baseURL + GetMMCourses
-        guard let Url = URL(string: JsonUrlString) else { return mmcourses }
-        
-        let (data, _, _) = URLSession.shared.synchronousDataTask(with: Url)
-        do {
-            mmcourses = try JSONDecoder().decode([MMCourses].self, from: (data ?? nil)!)
-        } catch let jsonErr {
-            print("Error Serializing Json:", jsonErr)
-        }
-        return mmcourses
-    }
-    
-    func getLib() -> [LCourses] {
-        var lcourses: [LCourses] = []
-        let JsonUrlString = baseURL + GetLibArtCourses
-        guard let Url = URL(string: JsonUrlString) else { return lcourses }
-        
-        let (data, _, _) = URLSession.shared.synchronousDataTask(with: Url)
-        do {
-            lcourses = try JSONDecoder().decode([LCourses].self, from: (data ?? nil)!)
-        } catch let jsonErr {
-            print("Error Serializing Json:", jsonErr)
-        }
-        return lcourses
-    }
     
 }
 
@@ -245,4 +213,3 @@ extension URLSession {
         return (data, response, error)
     }
 }
-

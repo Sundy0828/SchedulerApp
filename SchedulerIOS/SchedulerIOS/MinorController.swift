@@ -11,27 +11,32 @@ import UIKit
 
 class MinorController: UITableViewController {
     
-    var data = DataController()
-    var minors: [Minor] = []
+    var MM: [MajorMinor] = []
+    let data = DataController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        minors = data.getMinor()
-        //courses = data.getMM(MajorType: true)
-        
-        // MajorTable.dataSource = self
-        // MajorTable.delegate = self
-    }
-    
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "com.codepath.minorcell", for: indexPath)
-        cell.textLabel?.text = minors[indexPath.row].MMName
-        return cell
+        // Do any additional setup after loading the view, typically from a nib.
+        var minors = data.getMM(MajorType: false)
+        for i in 0..<minors.count {
+            if !myMinors.contains(where: { $0.ID == minors[i].ID }) {
+                MM.append(minors[i])
+            }
+        }
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return minors.count
+        return MM.count
     }
     
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "majorCell") as? SchoolCell
+        cell?.title.text = MM[indexPath.row].MMName
+        return cell!
+    }
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        myMinors.append(MM[indexPath.row])
+        self.navigationController?.popViewController(animated: true)
+    }
     
 }

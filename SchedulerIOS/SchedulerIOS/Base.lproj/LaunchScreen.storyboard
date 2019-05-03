@@ -17,10 +17,45 @@
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <accessibility key="accessibilityConfiguration">
-                            <accessibilityTraits key="traits" image="YES"/>
-                        </accessibility>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="EWJ-ou-JFK">
+                                <rect key="frame" x="0.0" y="20" width="375" height="631"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="SchedulerPNG" translatesAutoresizingMaskIntoConstraints="NO" id="5O2-hp-F1q">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="508"/>
+                                    </imageView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="9ad-Tq-OqS">
+                                        <rect key="frame" x="0.0" y="516" width="375" height="115"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Powered By" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HWR-aS-SdP">
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="66"/>
+                                                <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="20"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Sundy Studio's" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bsT-f2-bHt">
+                                                <rect key="frame" x="0.0" y="74" width="375" height="41"/>
+                                                <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="30"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="9ad-Tq-OqS" secondAttribute="trailing" constant="8" id="9AJ-Vk-dOt"/>
+                                    <constraint firstItem="9ad-Tq-OqS" firstAttribute="leading" secondItem="EWJ-ou-JFK" secondAttribute="leading" constant="8" id="bFN-HJ-LD9"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="EWJ-ou-JFK" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" constant="-16" id="8Jn-h4-968"/>
+                            <constraint firstItem="EWJ-ou-JFK" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="glH-kI-fYm"/>
+                            <constraint firstItem="EWJ-ou-JFK" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="mhK-Yy-FdI"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="EWJ-ou-JFK" secondAttribute="bottom" id="nKc-bf-Zuf"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="EWJ-ou-JFK" secondAttribute="trailing" id="nLC-pf-Ecd"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                 </viewController>
@@ -29,4 +64,7 @@
             <point key="canvasLocation" x="53" y="375"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="SchedulerPNG" width="467.51998901367188" height="349.92001342773438"/>
+    </resources>
 </document>
