@@ -11,9 +11,8 @@ import UIKit
 
 class SchoolController: UITableViewController {
     
-    var data = DataController()
     var schools: [School] = []
-    
+    let data = DataController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,36 +20,19 @@ class SchoolController: UITableViewController {
         schools = data.getSchools()
     }
     
-    
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "com.codepath.schoolcell", for: indexPath)
-        cell.textLabel?.text = schools[indexPath.row].SchoolName
-        
-        return cell
-        
-    }
-    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return schools.count
     }
     
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "schoolCell") as? SchoolCell
+        cell?.title.text = schools[indexPath.row].SchoolName
+        return cell!
+    }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let secondViewController = MMController()
-        let navigationController = UINavigationController(rootViewController: secondViewController)
-        show(navigationController, sender: nil)
-    }
+        schoolID = schools[indexPath.row].ID!
+        performSegue(withIdentifier: "MMSegue", sender: self)
     }
     
-    func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "segue" {
-            
-
-            // perform custom segue operation.
-        }
-    }
-        //Use below to get reference,so that you can pass value
-            //segue.destinationViewController
-        //segue.sourceViewController
-
     
-
+}

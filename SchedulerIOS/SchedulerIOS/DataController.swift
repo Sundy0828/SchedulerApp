@@ -9,6 +9,13 @@
 import Foundation
 import UIKit
 
+var schoolID = 0
+var myMajors: [MajorMinor] = []
+var myMinors: [MajorMinor] = []
+var mmTaken: [Course:Bool] = [:]
+var libArtTaken: [Course:Bool] = [:]
+var finalSchedule: [Semester] = []
+
 struct School: Decodable {
     let ID: Int?
     let SchoolName: String?
@@ -16,7 +23,7 @@ struct School: Decodable {
     let SecondaryColor: String?
 }
 
-struct Course: Decodable {
+struct Course: Decodable, Hashable {
     let ID: Int?
     let MCode: String?
     let CCode: String?
@@ -27,6 +34,10 @@ struct Course: Decodable {
     let Year: String?
     let Credits: Int?
     let LibArt: String?
+    
+    func getCode() -> String {
+        return MCode! + " " + CCode!
+    }
 }
 
 struct MajorMinor: Decodable {
@@ -53,7 +64,7 @@ class DataController: NSObject {
     
     func getSchools() -> [School] {
         var schools: [School] = []
-        let JsonUrlString = baseURL + GetSchools
+        let JsonUrlString = baseURL + "GetSchools"
         guard let Url = URL(string: JsonUrlString) else { return schools }
         
         let (data, _, _) = URLSession.shared.synchronousDataTask(with: Url)
@@ -68,9 +79,28 @@ class DataController: NSObject {
     
     func getCourses(CourseType: Bool) -> [Course] {
         var courses: [Course] = []
-        var course = GetMMCourses
+        var listMM:[String] = []
+        if myMajors.count > 0 {
+            for i in 0...myMajors.count - 1 {
+                var id = ""
+                if let item = myMajors[i].ID {
+                    id = String(item)
+                }
+                listMM.append(id)
+            }
+        }
+        if myMinors.count > 0 {
+            for i in 0...myMinors.count - 1 {
+                var id = ""
+                if let item = myMinors[i].ID {
+                    id = String(item)
+                }
+                listMM.append(id)
+            }
+        }
+        var course = GetMMCourses + "?schoolID=\(schoolID)&majors=\(listMM.joined(separator: ","))"
         if (!CourseType) {
-            course = GetLibArtCourses
+            course = GetLibArtCourses + "?schoolID=\(schoolID)"
         }
         let JsonUrlString = baseURL + course
         guard let Url = URL(string: JsonUrlString) else { return courses }
@@ -91,7 +121,7 @@ class DataController: NSObject {
         if (!MajorType) {
             MM = GetMinors
         }
-        let JsonUrlString = baseURL + MM
+        let JsonUrlString = baseURL + MM + "?schoolID=\(schoolID)"
         guard let Url = URL(string: JsonUrlString) else { return courses }
         
         let (data, _, _) = URLSession.shared.synchronousDataTask(with: Url)
@@ -106,7 +136,46 @@ class DataController: NSObject {
     
     func getFinalSchedule() -> [Semester] {
         var semesters: [Semester] = []
-        let JsonUrlString = baseURL + GetFinalSchedule
+        var listMM:[String] = []
+        if myMajors.count > 0 {
+            for i in 0...myMajors.count - 1 {
+                var id = ""
+                if let item = myMajors[i].ID {
+                    id = String(item)
+                }
+                listMM.append(id)
+            }
+        }
+        if myMinors.count > 0 {
+            for i in 0...myMinors.count - 1 {
+                var id = ""
+                if let item = myMinors[i].ID {
+                    id = String(item)
+                }
+                listMM.append(id)
+            }
+        }
+        var takenMM:[String] = []
+        for (course, taken) in mmTaken {
+            if taken {
+                var id = ""
+                if let item = course.ID {
+                    id = String(item)
+                }
+                takenMM.append(id)
+            }
+        }
+        var takenLibArt:[String] = []
+        for (course, taken) in libArtTaken {
+            if taken {
+                var id = ""
+                if let item = course.ID {
+                    id = String(item)
+                }
+                takenLibArt.append(id)
+            }
+        }
+        let JsonUrlString = baseURL + GetFinalSchedule + "?schoolID=\(schoolID)&majors=\(listMM.joined(separator: ","))&mmCoursesTaken=\(takenMM.joined(separator: ","))&libArtCoursesTaken=\(takenLibArt.joined(separator: ","))&startSem=Fall&startYear=2019&maxCredits=17&maxSem=8"
         guard let Url = URL(string: JsonUrlString) else { return semesters}
         
         let (data, _, _) = URLSession.shared.synchronousDataTask(with: Url)
